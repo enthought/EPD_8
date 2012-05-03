@@ -1,0 +1,24 @@
+.. _documentation_browser:
+
+Documentation Browser
+=====================
+
+The EPD GUI Documentation Browser is accessible from the *Help* menu. It
+includes links to documentation for some commonly used Python packages.
+
+.. image:: documentation_browser.png
+
+While browsing, you can with a single click copy a Python code snippet into
+the Python shell, where it will be executed immediately, or into the Code
+Editor (at the current cursor location), where it is available for further
+editing or execution. Look for the "Run in IPython" small scroll icon, and
+the "Copy and Paste" small document icon, both immediately above any Python
+code viewed in the Documentation Browser.
+
+..
+   Local Variables:
+   mode: rst
+   indent-tabs-mode: nil
+   sentence-end-double-space: nil
+   fill-column: 80
+   End:

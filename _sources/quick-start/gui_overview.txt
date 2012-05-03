@@ -1,0 +1,26 @@
+.. _gui_overview:
+
+EPD 8 GUI Overview
+==================
+
+This section briefly describes each of the EPD 8 GUI components. Our
+intention is that you be able to begin working in the GUI almost immediately,
+without much study. The GUI uses standard conventions when possible, so we do
+not describe each available feature or command. We do describe some features
+which are unusual or may not be as easily discoverable.
+
+.. toctree::
+   :maxdepth: 3
+
+   code_editor.rst
+   macro_editor.rst
+   package_manager.rst
+   documentation_browser.rst
+
+..
+   Local Variables:
+   mode: rst
+   indent-tabs-mode: nil
+   sentence-end-double-space: nil
+   fill-column: 80
+   End:

@@ -1,0 +1,169 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Package Manager &mdash; EPD 8.0.0-devel documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '8.0.0-devel',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="EPD 8.0.0-devel documentation" href="../index.html" />
+    <link rel="up" title="EPD 8 GUI Overview" href="gui_overview.html" />
+    <link rel="next" title="Documentation Browser" href="documentation_browser.html" />
+    <link rel="prev" title="Macro Editor" href="macro_editor.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="documentation_browser.html" title="Documentation Browser"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="macro_editor.html" title="Macro Editor"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">EPD 8.0.0-devel documentation</a> &raquo;</li>
+          <li><a href="../quick-start.html" >Quick Start Topics</a> &raquo;</li>
+          <li><a href="gui_overview.html" accesskey="U">EPD 8 GUI Overview</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="package-manager">
+<span id="id1"></span><h1>Package Manager<a class="headerlink" href="#package-manager" title="Permalink to this headline">¶</a></h1>
+<p>The Package Manager is designed to make it easy to discover and manage the
+Python packages available with the EPD Subscription service. It provides a
+convenient interface for finding and installing available packages, and for
+viewing, updating, and removing installed packages.</p>
+<img alt="../_images/package-manager-1.png" src="../_images/package-manager-1.png" />
+<p>Please note these key areas of the Package Manager:</p>
+<blockquote>
+<div><p>1. <strong>Search bar:</strong> quickly search the names and descriptions of the
+available packages. For example, typing <em>statistic</em> immediately filters the
+list down to six packages.</p>
+<p>2. <strong>Package filters:</strong> this set of three buttons filters the display to
+show either all packages, all installed packages, or only those packages for
+which updates are available.</p>
+<p>3. <strong>Subscription status:</strong> displays the name of the account currently in
+use and the subscription status of the account. This can be a useful
+troubleshooting tool, if a package is shown as unavailable, that you believe
+should be available. You can set your account information via the
+Preferences window. (Edit-&gt;Preferences on Windows and Linux, or
+EPD-&gt;Preferences on Mac OS.)</p>
+<p>4. <strong>Update available indicator:</strong> the red exclamation point added to the
+bottom right corner of the SciPy logo indicates that a newer version is
+available for installation. When this indicator is showing, the version
+number shown is the version number available, not the currently installed
+version. (Workaround to see the current version number: look at that
+package with the &#8220;Installed&#8221; package filter.)</p>
+<p>5. <strong>Installed indicator:</strong> the green checkbox added to the bottom right
+corner of the Traits logo indicates that this package is installed and
+up-to-date.</p>
+<p>6. <strong>More Info, Install buttons:</strong> selecting a package, as shown above for
+SQLAlchemy, provides two additional buttons: a &#8220;More Info&#8221; button and either
+an &#8220;Install&#8221; or &#8220;Remove&#8221; button. &#8220;More Info&#8221; displays additional information
+about the package such as what is included and the dependencies. Clicking
+&#8220;Install&#8221; installs the package into your user Python environment or updates
+the package to the most recent version. Conversely, if the package is
+already installed and the button is labeled &#8220;Remove&#8221; then the package is
+uninstalled.</p>
+</div></blockquote>
+<p>Two other indicator icons may be shown in addition to 4 and 5, but are not
+illustrated in the above picture:</p>
+<ul class="simple">
+<li>If a red stop-sign is displayed, it indicates that the package is part of
+EPD but is not available to the current user account &#8211; for example, if you
+are not a current subscriber.</li>
+<li>If a question mark in a blue-grey diamond is displayed, this indicates that
+the package is already installed but not available to the current user
+account through the Package Manager. So if you were to uninstall it, the
+Package Manager could not re-install it, given your current user settings.</li>
+</ul>
+<p>If you believe that one of these indicators is shown in error, check that the
+correct user name and subscription status is shown in the subscription status
+area of the Package Manager window (area 3 in the screen image above), or
+contact <a class="reference external" href="mailto:epd-support&#37;&#52;&#48;enthought&#46;com">epd-support<span>&#64;</span>enthought<span>&#46;</span>com</a>.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="macro_editor.html"
+                        title="previous chapter">Macro Editor</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="documentation_browser.html"
+                        title="next chapter">Documentation Browser</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/quick-start/package_manager.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="documentation_browser.html" title="Documentation Browser"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="macro_editor.html" title="Macro Editor"
+             >previous</a> |</li>
+        <li><a href="../index.html">EPD 8.0.0-devel documentation</a> &raquo;</li>
+          <li><a href="../quick-start.html" >Quick Start Topics</a> &raquo;</li>
+          <li><a href="gui_overview.html" >EPD 8 GUI Overview</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011-2012, Enthought Inc..
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+  </body>
+</html>

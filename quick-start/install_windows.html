@@ -1,0 +1,203 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Windows Installation &mdash; EPD 8.0.0-devel documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '8.0.0-devel',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="EPD 8.0.0-devel documentation" href="../index.html" />
+    <link rel="up" title="Step-by-Step Installation" href="install_overview.html" />
+    <link rel="next" title="Mac OSX Installation" href="install_macos.html" />
+    <link rel="prev" title="Step-by-Step Installation" href="install_overview.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="install_macos.html" title="Mac OSX Installation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="install_overview.html" title="Step-by-Step Installation"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">EPD 8.0.0-devel documentation</a> &raquo;</li>
+          <li><a href="../quick-start.html" >Quick Start Topics</a> &raquo;</li>
+          <li><a href="install_overview.html" accesskey="U">Step-by-Step Installation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="windows-installation">
+<span id="install-windows"></span><h1>Windows Installation<a class="headerlink" href="#windows-installation" title="Permalink to this headline">¶</a></h1>
+<p>To install on Microsoft Windows download either of the following EPD 8 installers:</p>
+<blockquote>
+<div><ul class="simple">
+<li><strong>epd_free-8.0-beta-win-x86.msi</strong> (140MB) -
+The EPD Free installer, which includes the GUI, plus 30 of the most popular
+Python packages. These packages are free to everyone. EPD subscribers can
+install additional packages from the EPD repository.</li>
+<li><strong>epd-8.0-beta-win-x86.msi</strong>, <strong>epd-8.0-beta-win-x86_64.msi</strong> (350MB) - The full
+EPD installer includes all of EPD Free plus over 100 additional Python
+packages bundled into the installer. This installer is only available
+to EPD subscribers.</li>
+</ul>
+</div></blockquote>
+<p>EPD subscribers may choose either installer. The EPD Free installer
+is smaller to download and allows subscribers to install additional Python
+packages, using the EPD 8 Package Manager or the enpkg command line utility.
+Subscribers have full access to the EPD Python Package repository. The full
+EPD installer is provided as a convenience for subscribers who wish to
+download the full set of packages at once.</p>
+<p>Both the free and full installers are available in 32-bit (&#8220;x86&#8221;); the 64-bit
+(&#8220;x86_64&#8221;) version is only available to subscribers. On 32-bit Windows, you must
+use a 32-bit installer. On 64-bit Windows, you may use either, but we recommend
+that you use a 64-bit installer for performance reasons.</p>
+<p>To start the installer, double-click the downloaded file. Verify that the
+publisher is listed as Enthought, Inc. and click Run. The first window of the
+install wizard should be displayed as shown below:</p>
+<img alt="../_images/win-install-1.png" src="../_images/win-install-1.png" />
+<p>Read the license terms and, if you agree with them, click &#8220;I accept the
+terms in the License Agreement&#8221; and click Next.</p>
+<div class="section" id="installation-location">
+<span id="install-windows-location"></span><h2>Installation location<a class="headerlink" href="#installation-location" title="Permalink to this headline">¶</a></h2>
+<p>Depending on your access rights on the machine the installer will present one
+of two displays. If you do not have administrative rights on the machine, you
+will see this display:</p>
+<img alt="../_images/win-install-2.png" src="../_images/win-install-2.png" />
+<p>You can install EPD as a &#8220;per-user installation&#8221;, meaning that it will be
+stored in your own account on this machine, not accessible to other users on the
+machine. The exact installation directory varies depending on your version of
+Windows:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="16%" />
+<col width="84%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Windows Version</th>
+<th class="head">Per-user Install Path</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Windows XP</td>
+<td><tt class="docutils literal"><span class="pre">C:\Documents</span> <span class="pre">and</span> <span class="pre">Settings\&lt;username&gt;\LocalSettings\Apps\Enthought</span> <span class="pre">Python</span></tt></td>
+</tr>
+<tr class="row-odd"><td>Windows Vista</td>
+<td><tt class="docutils literal"><span class="pre">C:\Documents</span> <span class="pre">and</span> <span class="pre">Settings\&lt;username&gt;\LocalSettings\Apps\Enthought</span> <span class="pre">Python</span></tt></td>
+</tr>
+<tr class="row-even"><td>Windows 7</td>
+<td><tt class="docutils literal"><span class="pre">C:\Users\&lt;username&gt;\AppData\Apps\Enthought</span> <span class="pre">Python</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>If you have administrative rights on the machine, you have the option to
+install EPD just for yourself (per-user install as above) or for everyone on
+the machine. If you choose to make EPD available to all users you can select
+where to install EPD. The default installation path is <tt class="docutils literal"><span class="pre">C:\Program</span>
+<span class="pre">Files\Enthought</span> <span class="pre">Python</span></tt>, except for for 32-bit EPD on 64-bit Windows, in which
+case the default is <tt class="docutils literal"><span class="pre">C:\Program</span> <span class="pre">Files</span> <span class="pre">(x86)\Enthought</span> <span class="pre">Python</span></tt>.</p>
+<img alt="../_images/win-install-3.png" src="../_images/win-install-3.png" />
+<p>In both cases, the last step is to click &#8216;Install&#8217; to begin the installation
+process. The process may take several minutes depending on your system
+configuration.</p>
+<p>Once the installation process is complete, EPD 8 is ready to use. The GUI is
+launched by selecting EPD Graphical Environment from the Windows Start menu.</p>
+<img alt="../_images/win-install-4.png" src="../_images/win-install-4.png" />
+<p>The installation process wraps up with the installation of the user Python
+environment, <a class="reference internal" href="install_pythonenv.html#install-pythonenv"><em>described here</em></a>, the first time the
+GUI application is started.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Windows Installation</a><ul>
+<li><a class="reference internal" href="#installation-location">Installation location</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="install_overview.html"
+                        title="previous chapter">Step-by-Step Installation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="install_macos.html"
+                        title="next chapter">Mac OSX Installation</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/quick-start/install_windows.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="install_macos.html" title="Mac OSX Installation"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="install_overview.html" title="Step-by-Step Installation"
+             >previous</a> |</li>
+        <li><a href="../index.html">EPD 8.0.0-devel documentation</a> &raquo;</li>
+          <li><a href="../quick-start.html" >Quick Start Topics</a> &raquo;</li>
+          <li><a href="install_overview.html" >Step-by-Step Installation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011-2012, Enthought Inc..
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+  </body>
+</html>

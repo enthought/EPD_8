@@ -1,0 +1,22 @@
+.. _advanced:
+
+Advanced Topics
+==================
+
+The Advanced Topics section provides more detailed information on the usage
+and operation of the EPD 8 Graphical Environment.
+
+.. toctree::
+   :maxdepth: 3
+
+   configure/faq.rst
+   configure/release-notes.rst
+   configure/macro_overview.rst
+
+..
+   Local Variables:
+   mode: rst
+   indent-tabs-mode: nil
+   sentence-end-double-space: nil
+   fill-column: 80
+   End:

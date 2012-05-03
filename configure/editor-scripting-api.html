@@ -1,0 +1,546 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Code Editor Scripting Commands &mdash; EPD 8.0.0-devel documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '8.0.0-devel',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="EPD 8.0.0-devel documentation" href="../index.html" />
+    <link rel="up" title="Recording, Editing, and Writing Macros" href="macro_overview.html" />
+    <link rel="next" title="IPython Pane Scripting Commands" href="ipython-scripting-api.html" />
+    <link rel="prev" title="Recording a simple macro for the code editor" href="macro_howto.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="ipython-scripting-api.html" title="IPython Pane Scripting Commands"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="macro_howto.html" title="Recording a simple macro for the code editor"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">EPD 8.0.0-devel documentation</a> &raquo;</li>
+          <li><a href="../advanced.html" >Advanced Topics</a> &raquo;</li>
+          <li><a href="macro_overview.html" accesskey="U">Recording, Editing, and Writing Macros</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="code-editor-scripting-commands">
+<span id="id1"></span><h1>Code Editor Scripting Commands<a class="headerlink" href="#code-editor-scripting-commands" title="Permalink to this headline">¶</a></h1>
+<p>As described at <a class="reference internal" href="macro_overview.html#macro-intro"><em>Recording, Editing, and Writing Macros</em></a>,
+macros are Python scripts which automate tasks in the EPD Graphical Environment.
+That section shows several examples of macros that can be useful in the code
+editor.</p>
+<p>Almost anything that a person can do in the code editor, a macro can also do:
+create or open a file, read or search its contents, edit it, save it, run it.</p>
+<p>This section describes the most common macro commands which are useful in the
+code editor.</p>
+<p><em>Please note that the scripting API in this beta version of EPD 8 GUI is
+likely to change in future releases. We plan for all recorded macros to be
+supported, but other current scripting commands may be changed.</em></p>
+<div class="section" id="code-editor-traits">
+<h2>Code editor traits<a class="headerlink" href="#code-editor-traits" title="Permalink to this headline">¶</a></h2>
+<p>The code editor has the following traits, which provide useful information about
+the state of the code editor. You can use these in your scripting commands.</p>
+<dl class="attribute">
+<dt id="text">
+<tt class="descname">text</tt><a class="headerlink" href="#text" title="Permalink to this definition">¶</a></dt>
+<dd><p>The contents of the text being edited (the entire file), as a string.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="selection">
+<tt class="descname">selection</tt><a class="headerlink" href="#selection" title="Permalink to this definition">¶</a></dt>
+<dd><p>The currently selected text, as a single string.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="line">
+<tt class="descname">line</tt><a class="headerlink" href="#line" title="Permalink to this definition">¶</a></dt>
+<dd><p>The current line number of the cursor, where the first line is numbered 1.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="column">
+<tt class="descname">column</tt><a class="headerlink" href="#column" title="Permalink to this definition">¶</a></dt>
+<dd><p>The current column number of the cursor, where the leftmost position is
+numbered 1.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="position">
+<tt class="descname">position</tt><a class="headerlink" href="#position" title="Permalink to this definition">¶</a></dt>
+<dd><p>The position of the cursor &#8211; a list containing line number and column
+number.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dirty">
+<tt class="descname">dirty</tt><a class="headerlink" href="#dirty" title="Permalink to this definition">¶</a></dt>
+<dd><p><tt class="docutils literal"><span class="pre">True</span></tt> when the text has been modified but not saved.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="code-editor-commands">
+<h2>Code editor commands<a class="headerlink" href="#code-editor-commands" title="Permalink to this headline">¶</a></h2>
+<p>The commands can be categorized into:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>File operations</li>
+<li>Cursor movement</li>
+<li>Text editing</li>
+</ol>
+</div></blockquote>
+<div class="section" id="file-operation-commands">
+<h3>File operation commands<a class="headerlink" href="#file-operation-commands" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="new_file">
+<tt class="descname">new_file</tt><big>(</big><big>)</big><a class="headerlink" href="#new_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open a new empty file in the code editor.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">code_task</span> <span class="o">=</span> <span class="n">get_active_task</span><span class="p">()</span>
+<span class="n">code_editor</span> <span class="o">=</span> <span class="n">code_task</span><span class="o">.</span><span class="n">new_file</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="open">
+<tt class="descname">open</tt><big>(</big><em>parent=None</em>, <em>default_directory=None</em>, <em>task_id=None</em><big>)</big><a class="headerlink" href="#open" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show a dialog for opening file(s).</p>
+<p><tt class="docutils literal"><span class="pre">default_directory</span></tt> is the directory which will be opened in the dialog.
+<tt class="docutils literal"><span class="pre">task_id</span></tt> can be used to specify the task in which the file should be
+opened. By default, the active task is chosen.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">file_service</span> <span class="o">=</span> <span class="n">get_file_service</span><span class="p">()</span>
+<span class="n">code_editor</span> <span class="o">=</span> <span class="n">file_service</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">default_directory</span><span class="o">=</span><span class="s">u&#39;~/src/editor&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="open_file">
+<tt class="descname">open_file</tt><big>(</big><em>filename</em>, <em>default_task_id=None</em>, <em>**info</em><big>)</big><a class="headerlink" href="#open_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open a specified file in a specified task.</p>
+<p><tt class="docutils literal"><span class="pre">default_task_id</span></tt> can be used to specify the task in which the file should
+be opened. By default, the active task is chosen.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">code_editor</span> <span class="o">=</span> <span class="n">file_service</span><span class="o">.</span><span class="n">open_file</span><span class="p">(</span><span class="s">u&#39;~/src/editor/editor.py&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="save">
+<tt class="descname">save</tt><big>(</big><big>)</big><a class="headerlink" href="#save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save the file in the active editor.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">code_task</span> <span class="o">=</span> <span class="n">get_active_task</span><span class="p">()</span>
+<span class="n">code_editor</span> <span class="o">=</span> <span class="n">code_task</span><span class="o">.</span><span class="n">active_editor</span>
+<span class="n">code_editor</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="save_as">
+<tt class="descname">save_as</tt><big>(</big><big>)</big><a class="headerlink" href="#save_as" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show a dialog for saving the file in the active editor.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">code_editor</span><span class="o">.</span><span class="n">save_as</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="reload">
+<tt class="descname">reload</tt><big>(</big><big>)</big><a class="headerlink" href="#reload" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reload the file from disk.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">code_editor</span><span class="o">.</span><span class="n">reload</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="print_">
+<tt class="descname">print_</tt><big>(</big><big>)</big><a class="headerlink" href="#print_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the contents of the current file, as held in the code editor (not
+necessarily as saved to disk).</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">code_editor</span><span class="o">.</span><span class="n">print_</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="print_preview">
+<tt class="descname">print_preview</tt><big>(</big><big>)</big><a class="headerlink" href="#print_preview" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print preview of the current file, as held in the code editor (not
+necessarily as saved to disk).</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">code_editor</span><span class="o">.</span><span class="n">print_preview</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="run_current_file">
+<tt class="descname">run_current_file</tt><big>(</big><big>)</big><a class="headerlink" href="#run_current_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the current file, as held in the code editor (not necessarily as saved
+to disk).</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">code_task</span><span class="o">.</span><span class="n">run_current_file</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="run_selection">
+<tt class="descname">run_selection</tt><big>(</big><big>)</big><a class="headerlink" href="#run_selection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the current selection.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">code_task</span><span class="o">.</span><span class="n">selection</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="cursor-movement-commands">
+<h3>Cursor movement commands<a class="headerlink" href="#cursor-movement-commands" title="Permalink to this headline">¶</a></h3>
+<p>When present, the <tt class="docutils literal"><span class="pre">count</span></tt> parameter specifies the number of characters or
+lines that the cursor should be moved.</p>
+<p>When present, the <tt class="docutils literal"><span class="pre">select</span></tt> parameter specifies whether the text should be
+selected, between the cursor&#8217;s initial and final positions.</p>
+<dl class="method">
+<dt id="move_left">
+<tt class="descname">move_left</tt><big>(</big><em>count=1</em>, <em>select=False</em><big>)</big><a class="headerlink" href="#move_left" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move the cursor left some number of characters.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">code_task</span> <span class="o">=</span> <span class="n">get_active_task</span><span class="p">()</span>
+<span class="n">code_editor</span> <span class="o">=</span> <span class="n">code_task</span><span class="o">.</span><span class="n">active_editor</span>
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">code_editor</span><span class="o">.</span><span class="n">cursor</span>
+<span class="n">cursor</span><span class="o">.</span><span class="n">move_left</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="move_right">
+<tt class="descname">move_right</tt><big>(</big><em>count=1</em>, <em>select=False</em><big>)</big><a class="headerlink" href="#move_right" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move the cursor right some number of characters.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cursor</span><span class="o">.</span><span class="n">move_right</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="start_of_line">
+<tt class="descname">start_of_line</tt><big>(</big><em>select=False</em><big>)</big><a class="headerlink" href="#start_of_line" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move the cursor to the start of the current line (column 1).</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cursor</span><span class="o">.</span><span class="n">start_of_line</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="end_of_line">
+<tt class="descname">end_of_line</tt><big>(</big><em>select=False</em><big>)</big><a class="headerlink" href="#end_of_line" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move the cursor to the end of the current line.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cursor</span><span class="o">.</span><span class="n">end_of_line</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="previous_line">
+<tt class="descname">previous_line</tt><big>(</big><em>count=1</em>, <em>select=False</em><big>)</big><a class="headerlink" href="#previous_line" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move the cursor up.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cursor</span><span class="o">.</span><span class="n">previous_line</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="next_line">
+<tt class="descname">next_line</tt><big>(</big><em>count=1</em>, <em>select=False</em><big>)</big><a class="headerlink" href="#next_line" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move the cursor down.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cursor</span><span class="o">.</span><span class="n">next_line</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="previous_word">
+<tt class="descname">previous_word</tt><big>(</big><em>count=1</em>, <em>select=False</em><big>)</big><a class="headerlink" href="#previous_word" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move the cursor to the previous beginning of a word. (If the cursor is
+in mid-word, this is the beginning of the current word; otherwise it is
+the beginning of the previous word.)</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cursor</span><span class="o">.</span><span class="n">previous_word</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="next_word">
+<tt class="descname">next_word</tt><big>(</big><em>count=1</em>, <em>select=False</em><big>)</big><a class="headerlink" href="#next_word" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move the cursor to the beginning of the next word.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cursor</span><span class="o">.</span><span class="n">next_word</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="start_of_document">
+<tt class="descname">start_of_document</tt><big>(</big><em>select=False</em><big>)</big><a class="headerlink" href="#start_of_document" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move the cursor to the start of the document (line 1, column 1).</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cursor</span><span class="o">.</span><span class="n">start_of_document</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="end_of_document">
+<tt class="descname">end_of_document</tt><big>(</big><em>select=False</em><big>)</big><a class="headerlink" href="#end_of_document" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move the cursor to the end of the document.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cursor</span><span class="o">.</span><span class="n">end_of_document</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="goto_line">
+<tt class="descname">goto_line</tt><big>(</big><em>line</em><big>)</big><a class="headerlink" href="#goto_line" title="Permalink to this definition">¶</a></dt>
+<dd><p>Go to the specified line without changing column if possible. If the
+requested line number is too big, go to the last line. If the current column
+number is too big for that line, go the the last column of the line.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">code_editor</span> <span class="o">=</span> <span class="n">code_task</span><span class="o">.</span><span class="n">active_editor</span>
+<span class="n">code_editor</span><span class="o">.</span><span class="n">goto_line</span><span class="p">(</span><span class="mi">99</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="goto_column">
+<tt class="descname">goto_column</tt><big>(</big><em>column</em><big>)</big><a class="headerlink" href="#goto_column" title="Permalink to this definition">¶</a></dt>
+<dd><p>Go to the specified column of the current line if possible. If column is
+too big, go to the end of the line.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">code_editor</span> <span class="o">=</span> <span class="n">code_task</span><span class="o">.</span><span class="n">active_editor</span>
+<span class="n">code_editor</span><span class="o">.</span><span class="n">goto_column</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="text-editing-commands">
+<h3>Text editing commands<a class="headerlink" href="#text-editing-commands" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="cut">
+<tt class="descname">cut</tt><big>(</big><big>)</big><a class="headerlink" href="#cut" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cut the selected text, if any, to the clipboard.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">code_editor</span><span class="o">.</span><span class="n">cut</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="copy">
+<tt class="descname">copy</tt><big>(</big><big>)</big><a class="headerlink" href="#copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy the selected text, if any, to the clipboard.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">code_editor</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="paste">
+<tt class="descname">paste</tt><big>(</big><big>)</big><a class="headerlink" href="#paste" title="Permalink to this definition">¶</a></dt>
+<dd><p>Paste the text from the clipboard.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">code_editor</span><span class="o">.</span><span class="n">paste</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="select_all">
+<tt class="descname">select_all</tt><big>(</big><big>)</big><a class="headerlink" href="#select_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select all the text in the document.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">code_editor</span><span class="o">.</span><span class="n">select_all</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="indent">
+<tt class="descname">indent</tt><big>(</big><big>)</big><a class="headerlink" href="#indent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Indent the selected block of text.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">code_editor</span><span class="o">.</span><span class="n">indent</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="unindent">
+<tt class="descname">unindent</tt><big>(</big><big>)</big><a class="headerlink" href="#unindent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unindent the selected block of text.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">code_editor</span><span class="o">.</span><span class="n">unindent</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="autoindent_newline">
+<tt class="descname">autoindent_newline</tt><big>(</big><big>)</big><a class="headerlink" href="#autoindent_newline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a new line and set its indent level, automatically.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">code_editor</span><span class="o">.</span><span class="n">autoindent_newline</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="backspace_unindent">
+<tt class="descname">backspace_unindent</tt><big>(</big><big>)</big><a class="headerlink" href="#backspace_unindent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete the previous character or unindent, as appropriate.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">code_editor</span><span class="o">.</span><span class="n">backspace_unindent</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="toggle_block_comment">
+<tt class="descname">toggle_block_comment</tt><big>(</big><big>)</big><a class="headerlink" href="#toggle_block_comment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Comment or uncomment a block of code, as appropriate.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">code_editor</span><span class="o">.</span><span class="n">toggle_block_comment</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="find">
+<tt class="descname">find</tt><big>(</big><em>text</em>, <em>case=False</em>, <em>word=False</em>, <em>wrap=True</em>, <em>regex=False</em>, <em>count=1</em><big>)</big><a class="headerlink" href="#find" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find occurrences of <tt class="docutils literal"><span class="pre">text</span></tt> in the document.</p>
+<p><tt class="docutils literal"><span class="pre">case</span></tt>: whether the search is case sensitive.</p>
+<p><tt class="docutils literal"><span class="pre">wrap</span></tt>: whether we should wrap around the end of the document, when
+searching.</p>
+<p><tt class="docutils literal"><span class="pre">word</span></tt>: whether only full words are matched.</p>
+<p><tt class="docutils literal"><span class="pre">regex</span></tt>: whether the search text should be interpreted as a regular
+expression.</p>
+<p><tt class="docutils literal"><span class="pre">count</span></tt>: how many repetitions of the search to do. If count is negative,
+then the search is backwards.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">code_editor</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;^def&#39;</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="replace">
+<tt class="descname">replace</tt><big>(</big><em>text</em>, <em>replace_text</em>, <em>case=False</em>, <em>word=False</em>, <em>wrap=True</em>, <em>regex=False</em>, <em>count=1</em><big>)</big><a class="headerlink" href="#replace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replace occurrences of <tt class="docutils literal"><span class="pre">text</span></tt> with <tt class="docutils literal"><span class="pre">replace_text</span></tt>. See <tt class="docutils literal"><span class="pre">find</span></tt> for
+description of parameters.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">code_editor</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;one&#39;</span><span class="p">,</span> <span class="s">&#39;two&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="replace_all">
+<tt class="descname">replace_all</tt><big>(</big><em>text</em>, <em>replace_text</em>, <em>case=False</em>, <em>word=False</em>, <em>wrap=True</em>, <em>regex=False</em><big>)</big><a class="headerlink" href="#replace_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replace all occurrences of <tt class="docutils literal"><span class="pre">text</span></tt> with <tt class="docutils literal"><span class="pre">replace_text</span></tt>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">code_editor</span><span class="o">.</span><span class="n">replace_all</span><span class="p">(</span><span class="s">&#39;one&#39;</span><span class="p">,</span> <span class="s">&#39;two&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Code Editor Scripting Commands</a><ul>
+<li><a class="reference internal" href="#code-editor-traits">Code editor traits</a></li>
+<li><a class="reference internal" href="#code-editor-commands">Code editor commands</a><ul>
+<li><a class="reference internal" href="#file-operation-commands">File operation commands</a></li>
+<li><a class="reference internal" href="#cursor-movement-commands">Cursor movement commands</a></li>
+<li><a class="reference internal" href="#text-editing-commands">Text editing commands</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="macro_howto.html"
+                        title="previous chapter">Recording a simple macro for the code editor</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="ipython-scripting-api.html"
+                        title="next chapter">IPython Pane Scripting Commands</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/configure/editor-scripting-api.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="ipython-scripting-api.html" title="IPython Pane Scripting Commands"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="macro_howto.html" title="Recording a simple macro for the code editor"
+             >previous</a> |</li>
+        <li><a href="../index.html">EPD 8.0.0-devel documentation</a> &raquo;</li>
+          <li><a href="../advanced.html" >Advanced Topics</a> &raquo;</li>
+          <li><a href="macro_overview.html" >Recording, Editing, and Writing Macros</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011-2012, Enthought Inc..
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+  </body>
+</html>

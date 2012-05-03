@@ -1,0 +1,327 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Code Editor, Python Shell, and File Browser &mdash; EPD 8.0.0-devel documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '8.0.0-devel',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="EPD 8.0.0-devel documentation" href="../index.html" />
+    <link rel="up" title="EPD 8 GUI Overview" href="gui_overview.html" />
+    <link rel="next" title="Macro Editor" href="macro_editor.html" />
+    <link rel="prev" title="EPD 8 GUI Overview" href="gui_overview.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="macro_editor.html" title="Macro Editor"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="gui_overview.html" title="EPD 8 GUI Overview"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">EPD 8.0.0-devel documentation</a> &raquo;</li>
+          <li><a href="../quick-start.html" >Quick Start Topics</a> &raquo;</li>
+          <li><a href="gui_overview.html" accesskey="U">EPD 8 GUI Overview</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="code-editor-python-shell-and-file-browser">
+<span id="code-editor"></span><h1>Code Editor, Python Shell, and File Browser<a class="headerlink" href="#code-editor-python-shell-and-file-browser" title="Permalink to this headline">¶</a></h1>
+<p>EPD 8 users spend most of their GUI time in this window. You can write Python
+code in the Code Editor, run your code in the Python panel or experiment
+line-by-line using IPython’s fast interactive help and discovery.</p>
+<img alt="../_images/code_editor-1.png" src="../_images/code_editor-1.png" />
+<p>Please note these key pieces of the Code Editor (more details below):</p>
+<blockquote>
+<div><p>1. <strong>File browser pane:</strong> shows one or more directories and any recently opened
+files. Double-click a file to open it in the Code Editor.</p>
+<p>2. <strong>Code editor:</strong> a general purpose text-editor with additional features
+specifically for editing Python code.</p>
+<p>3. <strong>Python pane:</strong> integrates an IPython (Interactive Python) prompt that lets
+you quickly test code, experiment with ideas, and run code directly from the
+editor.</p>
+<p>4. <strong>Editor status bar:</strong> shows information about the the file currently
+displayed in the code editor: line and column (1 and 22, respectively, in
+the image above), file type, and file path and name.</p>
+</div></blockquote>
+<p>The File Browser and Python panes can be dragged and dropped to different
+positions within a Code Editor window, or to outside its borders. When you
+are dragging a pane, the location where it would dock is hightlighted in
+blue. These panes can also be hidden using their small &#8220;X&#8221; icon, or
+hidden/shown from the <em>View</em> menu.</p>
+<div class="section" id="code-editor-features">
+<h2>Code Editor Features<a class="headerlink" href="#code-editor-features" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="choice-of-file-type">
+<h3>Choice of file type<a class="headerlink" href="#choice-of-file-type" title="Permalink to this headline">¶</a></h3>
+<p>The type of the current file is automatically determined based on the
+file’s extension (.py or .c for example) but can be manually changed by
+selecting a different type from the popup menu in the editor status bar.
+Changing the file type enables language-specific features, such as
+auto-completion of Python code and syntax highlighting for many languages.</p>
+</div>
+<div class="section" id="syntax-checking-with-pyflakes">
+<h3>Syntax checking with Pyflakes<a class="headerlink" href="#syntax-checking-with-pyflakes" title="Permalink to this headline">¶</a></h3>
+<p>For Python files, the editor frequently runs the pyflakes checking utility in
+the background, and marks syntax errors/warnings with red/yellow squiggly
+underlining.</p>
+<img alt="../_images/pyflakes_squiggle_description.png" src="../_images/pyflakes_squiggle_description.png" />
+<p>A small “!” icon in the status bar shows you the total number of errors
+and warnings in the current file. If you click this icon, then you will
+toggle the error description at the right of each affected line.</p>
+<img alt="../_images/pyflakes_status_bar_alert.png" src="../_images/pyflakes_status_bar_alert.png" />
+</div>
+<div class="section" id="tab-completion">
+<h3>Tab completion<a class="headerlink" href="#tab-completion" title="Permalink to this headline">¶</a></h3>
+<p>As you type code, you can use the <tt class="docutils literal"><span class="pre">Tab</span></tt> key to complete the name behind the
+cursor. If there are multiple possible completions, a small selection widget
+will pop up, allowing you to choose one completion. Tab completion for
+imports works as follows:</p>
+<div class="highlight-python"><pre>from numpy import lin&lt;TAB&gt;</pre>
+</div>
+<p>If there is a syntax error in the code, tab completion can fail. Tab
+completion is not performed inside comments or strings.</p>
+</div>
+<div class="section" id="inline-docstrings">
+<h3>Inline docstrings<a class="headerlink" href="#inline-docstrings" title="Permalink to this headline">¶</a></h3>
+<p>To see the documentation string for a function or class, you can do the
+following:</p>
+<div class="highlight-python"><pre>linspace&lt;TAB&gt;()
+# or
+linspace(&lt;TAB&gt;)
+# or
+linspace()&lt;TAB&gt;</pre>
+</div>
+<p>This will show a tooltip with the documentation for the function. However,
+once any function arguments are supplied, pressing &#8220;Tab&#8221; will no longer
+display the docstring for the function.  The following case will also not
+display documentation:</p>
+<div class="highlight-python"><pre>linspace(&lt;TAB&gt;
+# some other code below</pre>
+</div>
+<p>This is because the code is syntactically wrong since the parenthesis is not
+closed. In summary, the best way to get help strings is to finish writing the
+function, supply no arguments and hit tab as shown below:</p>
+<div class="highlight-python"><pre># Code ...
+
+linspace()&lt;TAB&gt;
+
+# More code.</pre>
+</div>
+</div>
+<div class="section" id="goto-definition">
+<h3>Goto definition<a class="headerlink" href="#goto-definition" title="Permalink to this headline">¶</a></h3>
+<p>You can jump to the definition of the name under the cursor, by pressing
+<tt class="docutils literal"><span class="pre">Ctrl+j</span></tt> (or <tt class="docutils literal"><span class="pre">Cmd+j</span></tt> on Mac OS X). For example:</p>
+<div class="highlight-python"><pre>from collections import namedtuple
+namedtuple&lt;Ctrl+j&gt;(x=1)</pre>
+</div>
+<p>This will open the <tt class="docutils literal"><span class="pre">collections.py</span></tt> file in another editor tab at the
+definition of the function. Note that you can press <tt class="docutils literal"><span class="pre">Ctrl+j</span></tt> anywhere on the
+symbol.  This should also work for variables.</p>
+</div>
+<div class="section" id="search-find-options">
+<h3>Search/Find Options<a class="headerlink" href="#search-find-options" title="Permalink to this headline">¶</a></h3>
+<p>The Find widget (reached from the <em>Search</em> menu), contains a small magnifying
+glass icon. Click this to specify Find options (Case, Word, Wrap around, and
+Regex).</p>
+</div>
+<div class="section" id="commenting-and-uncommenting-blocks">
+<h3>Commenting and uncommenting blocks<a class="headerlink" href="#commenting-and-uncommenting-blocks" title="Permalink to this headline">¶</a></h3>
+<p>Select a block of text using <tt class="docutils literal"><span class="pre">Shift+arrow</span> <span class="pre">key</span></tt> or the mouse, and then use
+the &#8220;Comment lines&#8221; command from the <em>Edit menu</em> (shortcut key <tt class="docutils literal"><span class="pre">Ctrl+/</span></tt>;
+<tt class="docutils literal"><span class="pre">Cmd+/</span></tt> on Mac OS X) to comment or uncomment the selection. If you want to
+simply comment/uncomment the current line, there is no need to select the
+block of text.</p>
+</div>
+<div class="section" id="code-indentation">
+<h3>Code Indentation<a class="headerlink" href="#code-indentation" title="Permalink to this headline">¶</a></h3>
+<p>To indent a block of code, select it, and then press the <tt class="docutils literal"><span class="pre">Tab</span></tt> key to indent
+it to the right, or <tt class="docutils literal"><span class="pre">Shift+Tab</span></tt> to dedent it to the left.</p>
+</div>
+<div class="section" id="bookmarks">
+<h3>Bookmarks<a class="headerlink" href="#bookmarks" title="Permalink to this headline">¶</a></h3>
+<p>A code editor bookmark (set in the <em>Window</em> menu) records all the files which
+are open in one or all editor windows, and the cursor position in each file.
+This is like a lightweight browser session manager or IDE project manager. It
+is not used for marking locations of interest in files.</p>
+</div>
+</div>
+<div class="section" id="file-browser-features">
+<h2>File browser Features<a class="headerlink" href="#file-browser-features" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="file-types">
+<h3>File types<a class="headerlink" href="#file-types" title="Permalink to this headline">¶</a></h3>
+<p>By default the file browser shows all recognized source file types (Python,
+C/C++, FORTRAN, …). This can be changed to show fewer file types or all
+files by using the &#8220;Filter&#8221; drop-down menu at the top of the file browser.</p>
+</div>
+<div class="section" id="top-level-paths">
+<h3>Top-level paths<a class="headerlink" href="#top-level-paths" title="Permalink to this headline">¶</a></h3>
+<p>For convenient access to your most commonly used files, the file browser is
+organized by “Top-level Paths”. Initially there is one top-level path for
+your OS home directory, and one for “Recent Files”. You can set any
+directory as a top-level path by browsing to it, right-clicking, and
+selecting “Add this as top level”.</p>
+</div>
+</div>
+<div class="section" id="python-shell-features">
+<h2>Python shell Features<a class="headerlink" href="#python-shell-features" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="pylab-mode-and-gui-support">
+<h3>Pylab mode and GUI support<a class="headerlink" href="#pylab-mode-and-gui-support" title="Permalink to this headline">¶</a></h3>
+<p>The Python session is an <a class="reference external" href="http://ipython.org/ipython-doc/stable/interactive/qtconsole.html">IPython QTconsole</a>. By
+default, it starts in Pylab mode with an interactive GUI backend. This
+permits you to run and interact with GUI programs while continuing to enter
+commands at the IPython prompt (e.g. to inspect or modify the GUI&#8217;s data).
+See <a class="reference external" href="http://ipython.org/ipython-doc/stable/interactive/reference.html#gui-support">IPython&#8217;s GUI event loop support</a>.</p>
+<p>The default Pylab GUI backend is WX. From the EPD 8 GUI preferences dialog,
+you can change Pylab to use an interactive QT4 GUI backend, or to display
+non-interactive inline SVG graphics.</p>
+<p>Pylab mode imports more than 900 numpy and matplotlib names into the console
+namespace, which can save typing but can lead to confusion when the same
+names (e.g. sum, min, max, any, all, int) are also Python builtins.</p>
+<p>From the preferences dialog, you can disable Pylab mode. If you do this, you
+can still get the benefits of GUI event loop support, by using one of these
+IPython &#8220;magic&#8221; commands: <tt class="docutils literal"><span class="pre">%gui</span> <span class="pre">wx</span></tt> or <tt class="docutils literal"><span class="pre">%gui</span> <span class="pre">qt</span></tt> or <tt class="docutils literal"><span class="pre">%gui</span> <span class="pre">inline</span></tt>.</p>
+</div>
+<div class="section" id="change-directory">
+<h3>Change directory<a class="headerlink" href="#change-directory" title="Permalink to this headline">¶</a></h3>
+<p>If you right-click in the Python shell, you will see a command to change the
+shell’s current directory to match the location of the current file in the Code
+Editor; this uses IPython’s magic “cd” command. For example, this can
+be convenient when running a demo program which assumes that its data files
+are in the current directory.</p>
+</div>
+<div class="section" id="running-editor-text-in-the-python-shell">
+<h3>Running editor text in the Python shell<a class="headerlink" href="#running-editor-text-in-the-python-shell" title="Permalink to this headline">¶</a></h3>
+<p>The <em>Run</em> menu contains commands to run the current file, or the currently
+selected text, within Python shell (the user Python enviroment).</p>
+</div>
+<div class="section" id="interrupting-and-restarting-the-user-python-environment">
+<h3>Interrupting and restarting the user Python environment<a class="headerlink" href="#interrupting-and-restarting-the-user-python-environment" title="Permalink to this headline">¶</a></h3>
+<p>The <em>Run</em> menu contains a command to Interrupt a program running in the IPython
+shell.</p>
+<p>The <em>Run</em> menu also contains a command to Restart the IPython kernel (user
+Python environment). This can be useful if a running program is frozen and
+not interruptible, or has corrupted the user Python environment. Note that if
+you restart the IPython kernel, all computed values in the Python session
+will be lost.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Code Editor, Python Shell, and File Browser</a><ul>
+<li><a class="reference internal" href="#code-editor-features">Code Editor Features</a><ul>
+<li><a class="reference internal" href="#choice-of-file-type">Choice of file type</a></li>
+<li><a class="reference internal" href="#syntax-checking-with-pyflakes">Syntax checking with Pyflakes</a></li>
+<li><a class="reference internal" href="#tab-completion">Tab completion</a></li>
+<li><a class="reference internal" href="#inline-docstrings">Inline docstrings</a></li>
+<li><a class="reference internal" href="#goto-definition">Goto definition</a></li>
+<li><a class="reference internal" href="#search-find-options">Search/Find Options</a></li>
+<li><a class="reference internal" href="#commenting-and-uncommenting-blocks">Commenting and uncommenting blocks</a></li>
+<li><a class="reference internal" href="#code-indentation">Code Indentation</a></li>
+<li><a class="reference internal" href="#bookmarks">Bookmarks</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#file-browser-features">File browser Features</a><ul>
+<li><a class="reference internal" href="#file-types">File types</a></li>
+<li><a class="reference internal" href="#top-level-paths">Top-level paths</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#python-shell-features">Python shell Features</a><ul>
+<li><a class="reference internal" href="#pylab-mode-and-gui-support">Pylab mode and GUI support</a></li>
+<li><a class="reference internal" href="#change-directory">Change directory</a></li>
+<li><a class="reference internal" href="#running-editor-text-in-the-python-shell">Running editor text in the Python shell</a></li>
+<li><a class="reference internal" href="#interrupting-and-restarting-the-user-python-environment">Interrupting and restarting the user Python environment</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="gui_overview.html"
+                        title="previous chapter">EPD 8 GUI Overview</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="macro_editor.html"
+                        title="next chapter">Macro Editor</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/quick-start/code_editor.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="macro_editor.html" title="Macro Editor"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="gui_overview.html" title="EPD 8 GUI Overview"
+             >previous</a> |</li>
+        <li><a href="../index.html">EPD 8.0.0-devel documentation</a> &raquo;</li>
+          <li><a href="../quick-start.html" >Quick Start Topics</a> &raquo;</li>
+          <li><a href="gui_overview.html" >EPD 8 GUI Overview</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011-2012, Enthought Inc..
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,403 @@
+.. _code_editor_scripting_commands:
+
+==============================
+Code Editor Scripting Commands
+==============================
+
+As described at :ref:`Recording, Editing, and Writing Macros <macro_intro>`,
+macros are Python scripts which automate tasks in the EPD Graphical Environment.
+That section shows several examples of macros that can be useful in the code
+editor.
+
+Almost anything that a person can do in the code editor, a macro can also do:
+create or open a file, read or search its contents, edit it, save it, run it.
+
+This section describes the most common macro commands which are useful in the
+code editor.
+
+*Please note that the scripting API in this beta version of EPD 8 GUI is
+likely to change in future releases. We plan for all recorded macros to be
+supported, but other current scripting commands may be changed.*
+
+Code editor traits
+==================
+
+The code editor has the following traits, which provide useful information about
+the state of the code editor. You can use these in your scripting commands.
+
+.. attribute:: text
+
+   The contents of the text being edited (the entire file), as a string.
+
+
+.. attribute:: selection
+
+   The currently selected text, as a single string.
+
+
+.. attribute:: line
+
+   The current line number of the cursor, where the first line is numbered 1.
+
+
+.. attribute:: column
+
+   The current column number of the cursor, where the leftmost position is
+   numbered 1.
+
+
+.. attribute:: position
+
+   The position of the cursor -- a list containing line number and column 
+   number.
+
+
+.. attribute:: dirty
+
+   ``True`` when the text has been modified but not saved.
+
+
+Code editor commands
+====================
+
+The commands can be categorized into:
+
+  #. File operations
+  #. Cursor movement
+  #. Text editing
+
+File operation commands
+-----------------------
+
+.. method:: new_file()
+
+   Open a new empty file in the code editor.
+
+   ::
+
+      code_task = get_active_task()
+      code_editor = code_task.new_file()
+
+.. method:: open(parent=None, default_directory=None, task_id=None)
+
+   Show a dialog for opening file(s).
+
+   ``default_directory`` is the directory which will be opened in the dialog.
+   ``task_id`` can be used to specify the task in which the file should be
+   opened. By default, the active task is chosen.
+
+   ::
+
+      file_service = get_file_service()
+      code_editor = file_service.open(default_directory=u'~/src/editor')
+
+
+.. method:: open_file(filename, default_task_id=None, **info)
+
+   Open a specified file in a specified task.
+
+   ``default_task_id`` can be used to specify the task in which the file should
+   be opened. By default, the active task is chosen.
+
+   ::
+
+      code_editor = file_service.open_file(u'~/src/editor/editor.py')
+
+.. method:: save()
+
+   Save the file in the active editor.
+
+   ::
+
+      code_task = get_active_task()
+      code_editor = code_task.active_editor
+      code_editor.save()
+
+
+.. method:: save_as()
+
+   Show a dialog for saving the file in the active editor.
+
+   ::
+
+      code_editor.save_as()
+
+.. method:: reload()
+
+   Reload the file from disk.
+
+   ::
+
+      code_editor.reload()
+
+.. method:: print_()
+
+   Print the contents of the current file, as held in the code editor (not
+   necessarily as saved to disk).
+
+   ::
+
+       code_editor.print_()
+
+.. method:: print_preview()
+
+   Print preview of the current file, as held in the code editor (not
+   necessarily as saved to disk).
+
+   ::
+
+       code_editor.print_preview()
+
+.. method:: run_current_file()
+
+   Run the current file, as held in the code editor (not necessarily as saved 
+   to disk).
+
+   ::
+
+       code_task.run_current_file()
+
+.. method:: run_selection()
+
+   Run the current selection.
+
+   ::
+
+       code_task.selection()
+
+Cursor movement commands
+------------------------
+
+When present, the ``count`` parameter specifies the number of characters or 
+lines that the cursor should be moved.
+
+When present, the ``select`` parameter specifies whether the text should be 
+selected, between the cursor's initial and final positions.
+
+.. method:: move_left(count=1, select=False)
+
+   Move the cursor left some number of characters.
+
+   ::
+
+       code_task = get_active_task()
+       code_editor = code_task.active_editor
+       cursor = code_editor.cursor
+       cursor.move_left(10)
+
+.. method:: move_right(count=1, select=False)
+
+   Move the cursor right some number of characters. 
+
+   ::
+
+       cursor.move_right(10)
+
+.. method:: start_of_line(select=False)
+
+   Move the cursor to the start of the current line (column 1).
+
+
+   ::
+
+       cursor.start_of_line()
+
+.. method:: end_of_line(select=False)
+
+   Move the cursor to the end of the current line.
+
+   ::
+
+       cursor.end_of_line()
+
+.. method:: previous_line(count=1, select=False)
+
+   Move the cursor up.
+
+   ::
+
+       cursor.previous_line()
+
+.. method:: next_line(count=1, select=False)
+
+   Move the cursor down.
+
+   ::
+
+       cursor.next_line()
+
+.. method:: previous_word(count=1, select=False)
+
+   Move the cursor to the previous beginning of a word. (If the cursor is
+   in mid-word, this is the beginning of the current word; otherwise it is
+   the beginning of the previous word.)
+
+   ::
+
+       cursor.previous_word()
+
+.. method:: next_word(count=1, select=False)
+
+   Move the cursor to the beginning of the next word.
+
+   ::
+
+       cursor.next_word()
+
+.. method:: start_of_document(select=False)
+
+   Move the cursor to the start of the document (line 1, column 1).
+
+   ::
+
+       cursor.start_of_document()
+
+.. method:: end_of_document(select=False)
+
+   Move the cursor to the end of the document.
+
+   ::
+
+       cursor.end_of_document()
+
+.. method:: goto_line(line)
+
+   Go to the specified line without changing column if possible. If the
+   requested line number is too big, go to the last line. If the current column 
+   number is too big for that line, go the the last column of the line.
+
+   ::
+
+       code_editor = code_task.active_editor
+       code_editor.goto_line(99)
+
+.. method:: goto_column(column)
+
+   Go to the specified column of the current line if possible. If column is
+   too big, go to the end of the line.
+
+   ::
+
+       code_editor = code_task.active_editor
+       code_editor.goto_column(5)
+
+Text editing commands
+---------------------
+
+.. method:: cut()
+
+   Cut the selected text, if any, to the clipboard.
+
+   ::
+
+       code_editor.cut()
+
+.. method:: copy()
+
+   Copy the selected text, if any, to the clipboard.
+
+   ::
+
+       code_editor.copy()
+
+.. method:: paste()
+
+   Paste the text from the clipboard.
+
+   ::
+
+       code_editor.paste()
+
+.. method:: select_all()
+
+   Select all the text in the document.
+
+   ::
+
+       code_editor.select_all()
+
+.. method:: indent()
+
+   Indent the selected block of text.
+
+   ::
+
+       code_editor.indent()
+
+.. method:: unindent()
+
+   Unindent the selected block of text.
+
+   ::
+
+       code_editor.unindent()
+
+.. method:: autoindent_newline()
+
+   Add a new line and set its indent level, automatically.
+
+   ::
+
+       code_editor.autoindent_newline()
+
+.. method:: backspace_unindent()
+
+   Delete the previous character or unindent, as appropriate.
+
+   ::
+
+       code_editor.backspace_unindent()
+
+.. method:: toggle_block_comment()
+
+   Comment or uncomment a block of code, as appropriate.
+
+   ::
+
+       code_editor.toggle_block_comment()
+
+.. method:: find(text, case=False, word=False, wrap=True, regex=False, count=1)
+
+   Find occurrences of ``text`` in the document.
+
+   ``case``: whether the search is case sensitive. 
+   
+   ``wrap``: whether we should wrap around the end of the document, when 
+   searching.
+
+   ``word``: whether only full words are matched. 
+   
+   ``regex``: whether the search text should be interpreted as a regular 
+   expression. 
+   
+   ``count``: how many repetitions of the search to do. If count is negative, 
+   then the search is backwards.
+
+   ::
+
+       code_editor.find('^def', regex=True, count=2)
+
+.. method:: replace(text, replace_text, case=False, word=False, wrap=True, regex=False, count=1)
+
+   Replace occurrences of ``text`` with ``replace_text``. See ``find`` for
+   description of parameters.
+
+   ::
+
+       code_editor.replace('one', 'two')
+
+.. method:: replace_all(text, replace_text, case=False, word=False, wrap=True, regex=False)
+
+   Replace all occurrences of ``text`` with ``replace_text``.
+
+   ::
+
+       code_editor.replace_all('one', 'two')
+
+..
+   Local Variables:
+   mode: rst
+   indent-tabs-mode: nil
+   sentence-end-double-space: nil
+   fill-column: 80
+   End:

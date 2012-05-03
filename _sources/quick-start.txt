@@ -1,0 +1,22 @@
+.. _quickstart:
+
+Quick Start Topics
+==================
+
+The Quick Start section is intended to get you up and running quickly. 
+More detailed information can be found in the Advanced Topics section.
+
+.. toctree::
+   :maxdepth: 3
+
+   quick-start/install_overview.rst
+   quick-start/updating_epd_gui.rst
+   quick-start/gui_overview.rst
+
+..
+   Local Variables:
+   mode: rst
+   indent-tabs-mode: nil
+   sentence-end-double-space: nil
+   fill-column: 80
+   End:

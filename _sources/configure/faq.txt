@@ -1,0 +1,143 @@
+.. _faq:
+
+Tips, Tricks, and Frequently Asked Questions
+============================================
+
+This section provides answers to specific questions raised by early users, 
+tips for using the environment and other specific suggestions.
+
+.. _faq-epd-vs-epd_free:
+
+What is the difference between the EPD and EPD Free installers?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Both installers include exactly the same graphical environment and the same
+version of Python in the user Python environment. The only difference is in
+the number of Python packages installed by default in the user Python
+environment. EPD Free installs over 30 of the most popular packages in
+the user Python environment. 
+Subscribers can then use the Package Manager or the enpkg command line
+utility to add any additional packages found in the EPD Subscriber
+Repository.
+
+The full EPD installer includes over 100 additional packages from the EPD
+Subscriber Repository pre-installed in the user Python environment. The full
+installer is provided as a convenience for users who want to install a large
+number of packages initially and for corporate licensees who want to speed up
+installation by storing a local copy of the full installer.
+
+A full listing of EPD (and EPD Free) packages is available at `EPD Package
+Index <http://www.enthought.com/products/epdlibraries.php>`_. All EPD users
+can also use enpkg to install thousands of packages from Enthought's
+selective mirror of `PyPI - the Python Package Index
+<http://pypi.python.org/pypi>`_.
+
+
+.. _faq-epd-arch:
+
+What is the difference between the EPD GUI and the User Python Environment?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The EPD 8 working environment consists of two major components: the EPD
+Graphical Environment (GUI), and the user Python environment. The user Python
+environment is the traditional Enthought Python Distribution, which is a
+standard Python environment with additional packages pre-installed. The GUI
+is written in Python, but the Python that it runs under is independent of the
+user Python environment, and is not user extensible; it only contains those
+modules necessary for implementing the EPD 8 GUI.
+
+.. figure:: faq-epd-arch-1.png
+   :align: right
+
+The figure to the right depicts this architecture. Notice that the system
+runs as two separate processes. The EPD GUI includes an "IPython front end",
+specifically IPython's `QTConsole
+<http://ipython.org/ipython-doc/stable/interactive/qtconsole.html>`_, where
+you type commands and read the results. However your python commands are
+actually executed in a separate process (the "IPython kernel", which runs in
+the user Python environment. This separation has two significant benefits:
+
+First, if anything goes wrong in code being executed in the user Python
+environment, it will not impact the GUI and will not result in the loss of
+any unsaved changes. From the GUI the user Python environment ("kernel") can
+be re-started if needed.
+
+Second, keeping the GUI and user Python environments independent means there
+is no risk that package changes to one will cause code in the other to stop
+functioning. Updates to the GUI will not affect your user Python environment,
+and you can add, update, or remove packages from your user Python environment
+without risking the GUI's operation.
+
+.. _changing_interpreter_path:
+
+.. _faq-change-pyenv:
+
+How do I use the GUI with different user Python environments?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The first time the EPD GUI is launched it prompts for the selection or
+installation of a user Python environment, where all your Python code will
+run. This setting is saved in the EPD preferences.ini file and generally does
+not need to be changed. (:ref:`pref-log-file-locations`)
+
+However you might, for example, decide to try the EPD 8 GUI first with the
+EPD 7.3 that is bundled with the GUI, and then later with your previously
+installed EPD 7.2 installation. This is perfectly fine.
+
+If you do decide to select a different Python environment, this can be done
+by editing the preferences.ini file. To do so, open the file in any standard
+text editor (Notepad, TextEdit, vi, or similar) and look for the interpreter
+setting. The line will look something like one of these lines::
+
+   interpreter = c:\Python27\pythonw.exe
+   interpreter = C:\Users\test\AppData\Local\Apps\Enthought Python\7.3-x86\pythonw.exe
+
+
+**Make sure that you exit the EPD GUI prior to editing this file, as the GUI
+will re-write the preferences on exit.**
+
+The easiest and safest way to change the interpreter setting is to delete
+this line, save the file in the (non-EPD GUI) text editor, then restart the
+EPD GUI. You will again be prompted to set up the user Python environment,
+and have the option to either select an existing environment or install a new
+one.
+
+Alternatively, you may directly edit the interpreter setting in
+preferences.ini, to specify the path to a different EPD Python interpreter.
+On Mac OSX and Linux the path should point to an executable named
+python. On Windows the executable name should be pythonw.exe. The
+architecture (32- or 64-bit) of this EPD Python interpreter must be the
+same as your EPD 8 GUI installation's.
+
+If you choose to use an existing EPD, please see :ref:`using-existing-epd`.
+
+.. _pref-log-file-locations:
+
+Where are the preference and log files located?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Usually, users will not need to reference these files. Most preferences are
+usually set from the Preferences dialog in the GUI. If there is a GUI error,
+a dialog should ask you if you want to report it, which should send the
+relevant log file to Enthought.
+
+However, if you need to access these files, here are their platform-specific
+locations:
+
+===================== ===================================================================
+Platform              Location
+===================== ===================================================================
+Windows XP & Vista    C:\\Documents and Settings\\<user>\Application Data\\EPD\\preference.ini
+Windows 7             C:\\Users\\<user>\\AppData\\Roaming\\EPD\\preferences.ini
+Mac OS                ~/.epd/preferences.ini
+Linux                 ~/.epd/preferences.ini
+===================== ===================================================================
+
+
+..
+   Local Variables:
+   mode: rst
+   indent-tabs-mode: nil
+   sentence-end-double-space: nil
+   fill-column: 80
+   End:

@@ -1,0 +1,30 @@
+.. _macro_intro:
+
+Recording, Editing, and Writing Macros
+======================================
+
+Macros are a quick way to customize and extend the EPD Graphical Environment.
+They can help you to automate tasks which are frequent or complicated.
+
+You can record a series of actions as a macro, then play the macro back when
+needed. Most user actions in the code editor are recordable like this, as are
+commands entered at the IPython prompt.
+
+Every macro is saved as a Python script, so you can tweak it, or make its
+actions context-sensitive, just by editing its Python script. You can also write
+a macro from scratch. 
+
+.. toctree::
+   :maxdepth: 3
+
+   macro_howto.rst
+   editor-scripting-api.rst
+   ipython-scripting-api.rst
+
+..
+   Local Variables:
+   mode: rst
+   indent-tabs-mode: nil
+   sentence-end-double-space: nil
+   fill-column: 80
+   End:
