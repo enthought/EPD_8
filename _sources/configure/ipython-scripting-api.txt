@@ -1,0 +1,67 @@
+.. _ipython_pane_scripting_commands:
+
+================================
+IPython Pane Scripting Commands
+================================
+
+As described at :ref:`Recording, Editing, and Writing Macros <macro_intro>`,
+macros are Python scripts which automate tasks in the EPD Graphical Environment.
+
+*Please note that the scripting API in this beta version of EPD 8 GUI is
+likely to change in future releases. We plan for all recorded macros to be
+supported, but other current scripting commands may be changed.*
+
+Here are several commands which you can use to script some common IPython actions.
+
+.. method:: execute_command(command, hidden=False)
+
+   Executes a command at the IPython prompt.
+
+   If ``hidden`` is True, then the command is executed without displaying any 
+   input or output in the IPython interpreter.
+   
+   If you enter a command at the IPython prompt while you are recording a macro,
+   it will be recorded in the macro script as a call to this method. (At
+   present, this is the only recordable action in the IPython panel.)
+
+   ::
+
+       code_task = get_active_task()
+       python_pane = code_task.python_pane
+       python_pane.execute_command(u'print "hello world"\n')
+
+.. method:: execute_file(path, hidden=False)
+
+   Executes a file at the IPython prompt.
+   
+   If ``hidden`` is True, then the file is executed without displaying any 
+   input or output in the IPython interpreter.   
+
+   ::
+
+       code_task = get_active_task()
+       python_pane = code_task.python_pane
+       python_pane.execute_file('/tmp/script.py')
+
+.. method:: history_tail(count)
+
+   Returns a list of the final ``count`` entries from the end of the local 
+   IPython history list.
+
+   ::
+   
+        # Repeat the next-to-last command at the IPython prompt.
+        # (Invoke this repeatedly to alternate between two commands):
+        code_task = get_active_task()
+        python_pane = code_task.python_pane
+        python_pane.execute_command(python_pane.history_tail(2)[0])
+       
+
+
+..
+   Local Variables:
+   mode: rst
+   indent-tabs-mode: nil
+   sentence-end-double-space: nil
+   fill-column: 80
+   End:

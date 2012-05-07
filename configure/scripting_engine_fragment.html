@@ -1,0 +1,171 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Scripting Engine User Overview &mdash; EPD 8.0.0-devel documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '8.0.0-devel',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="EPD 8.0.0-devel documentation" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="../index.html">EPD 8.0.0-devel documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="scripting-engine-user-overview">
+<h1>Scripting Engine User Overview<a class="headerlink" href="#scripting-engine-user-overview" title="Permalink to this headline">¶</a></h1>
+<p>This is a fragment of documentation, apparently partly based on part of the
+developer doc scripting.rst, with the goal of being user-accessible. Still
+needs an overview, definition of terms, etc.</p>
+<div class="section" id="scripting-engine-behind-the-scenes">
+<h2>Scripting engine - behind the scenes<a class="headerlink" href="#scripting-engine-behind-the-scenes" title="Permalink to this headline">¶</a></h2>
+<p>The scripting engine manages scriptable objects and records their actions.
+Objects need to be explicitly registered with the scripting engine for their
+actions to be recorded. When an object is registered with the scripting
+engine, the following steps are taken:</p>
+<ol class="arabic simple">
+<li>The object is associated with an accessor function.</li>
+<li>All methods decorated with <tt class="docutils literal"><span class="pre">recordable</span></tt> are given references to the engine.</li>
+<li>All traits with <tt class="docutils literal"><span class="pre">recordable</span></tt> metadata are assigned listeners.</li>
+<li>All traits with <tt class="docutils literal"><span class="pre">scriptable</span></tt> metadata are recursively registered as
+children of the object. If they have <tt class="docutils literal"><span class="pre">script_accessor</span></tt> metadata, accessor
+functions are also stored. Listeners are installed to ensure that the traits
+are registered and unregistered as appropriate when changed.</li>
+</ol>
+<p>Note that a trait may be both <tt class="docutils literal"><span class="pre">recordable</span></tt> and <tt class="docutils literal"><span class="pre">scriptable</span></tt>, but this use
+case does not seem likely. Generally, one will be using methods or trait
+assignment for scripting an object, but not both.</p>
+<p>Objects registered directly with the engine will be called toplevel objects, in
+contrast to child objects that are registered indirectly via the above
+procedure. Attempting to register a toplevel object twice is an error, and an
+exception will be raised. However, since non-toplevel objects will be registered
+and unregistered on the fly, this approach is not acceptable in general. If
+there is a collision between non-toplevel objects, we will log a warning and use
+the most recently registered path when peforming name resolution.</p>
+<p>The name resolution procedure for recordable method calls and trait assignments
+is as follows:</p>
+<ol class="arabic simple">
+<li>If the object has a name in the engine&#8217;s namespace, use it.</li>
+<li>If the object has a global accessor function registered, use it.</li>
+<li>Otherwise, the engine must know about the object&#8217;s parent&#8211;this is enforced
+by the registration procedure above. Recurse on the parent.</li>
+</ol>
+<div class="section" id="proxy-methods">
+<h3>Proxy methods<a class="headerlink" href="#proxy-methods" title="Permalink to this headline">¶</a></h3>
+<p>In order to be able to record calls to methods of widgets, which we do not wish
+to register with the scripting engine, additional proxy methods are added to the
+widgets. These proxy methods call methods of the delegate of the widget, which
+are recordable and simply call the appropriate methods of the child widget with
+suitable arguments. For an example, look at the <tt class="docutils literal"><span class="pre">_find_proxy</span></tt> method of the
+<tt class="docutils literal"><span class="pre">advanced_code_widget</span></tt>.</p>
+</div>
+</div>
+<div class="section" id="accessing-registered-objects">
+<h2>Accessing registered objects<a class="headerlink" href="#accessing-registered-objects" title="Permalink to this headline">¶</a></h2>
+<p>Canopy&#8217;s application and file handling service are registered as top-level
+objects when canopy starts up and they can be accessed using their accessor
+functions, <tt class="docutils literal"><span class="pre">get_application</span></tt> and <tt class="docutils literal"><span class="pre">get_file_service</span></tt>. Also, the currently
+active task can be accessed using the <tt class="docutils literal"><span class="pre">get_active_task</span></tt> function.</p>
+<p>Once the application is available, any task or service of the application can be
+accessed using the applications methods like <tt class="docutils literal"><span class="pre">get_task</span></tt>, <tt class="docutils literal"><span class="pre">get_plugin</span></tt> and
+<tt class="docutils literal"><span class="pre">activate_task</span></tt>. Following are the various tasks available in canopy and their
+ids.</p>
+<ul class="simple">
+<li>Code Editor, &#8216;canopy.code_editor&#8217;</li>
+<li>Documentation Browser, &#8216;canopy.doc_browser_pane&#8217;</li>
+<li>Integrated Code Editor, &#8216;canopy.integrated_code_editor&#8217;</li>
+<li>Help window, &#8216;canopy.help&#8217;</li>
+<li>Package Manager, &#8216;canopy.package_manager&#8217;</li>
+<li>Welcome window, &#8216;canopy.welcome&#8217;</li>
+<li>Macro editor, &#8216;canopy.scripting_ui&#8217;</li>
+<li>Python Frontend, &#8216;canopy.python_frontend&#8217;</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Scripting Engine User Overview</a><ul>
+<li><a class="reference internal" href="#scripting-engine-behind-the-scenes">Scripting engine - behind the scenes</a><ul>
+<li><a class="reference internal" href="#proxy-methods">Proxy methods</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#accessing-registered-objects">Accessing registered objects</a></li>
+</ul>
+</li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/configure/scripting_engine_fragment.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li><a href="../index.html">EPD 8.0.0-devel documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011-2012, Enthought Inc..
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,31 @@
+.. _install_overview:
+
+Step-by-Step Installation
+=========================
+
+The EPD 8 installation process consists of two phases:
+
+    1. Installation of the graphical environment (GUI), described below, by
+    operating system.
+     
+    2. :ref:`Setting up the User Python Environment <install_pythonenv>`.
+    This phase is common to all operating systems and occurs when the
+    application is started for the first time. Existing EPD users may choose
+    to continue to use their current EPD Python environment. Existing and new
+    EPD users may install a new EPD 7.3 environment.
+
+.. toctree::
+   :maxdepth: 1
+
+   install_windows.rst
+   install_macos.rst
+   install_linux.rst
+   install_pythonenv.rst
+
+..
+   Local Variables:
+   mode: rst
+   indent-tabs-mode: nil
+   sentence-end-double-space: nil
+   fill-column: 80
+   End:

@@ -1,0 +1,226 @@
+.. _release_notes:
+
+EPD 8 beta Release Notes
+========================
+
+This section lists the uncorrected issues known at release time. Where
+possible, we suggest workarounds.
+
+All platforms
+^^^^^^^^^^^^^
+
+.. _package_manager_with_root_installs:
+
+Package Manager fails with write error on existing EPD environment
+------------------------------------------------------------------
+
+When using the new GUI Package Manager, with a pre-existing EPD installation
+as the User Python Environment, in some cases Package Manager will fail,
+reporting that it is unable to write to the Python environment. This occurs
+when the pre-existing EPD installation was installed with administrative (or
+"root") permissions.
+
+This issue primarily arises on Mac OS systems where earlier versions of EPD
+were installed in ``/Library/Frameworks`` by default, which requires
+administrative ("root") access. On Windows machines this error can occur if
+EPD was installed to ``C:\Python27`` or a similar directory using
+administrative privileges or by a different user. On Linux, this issue arises 
+if EPD was installed to a system-wide directory that is not owned by the
+current user and the current user doesn't specifically have write
+permissions.
+
+There are three possible workarounds for this issue:
+
+One workaround method is to install a new user Python environment when the
+GUI is first started. This environment will be what is referred to as a
+"per-user" install, meaning that each user gets their own copy and has full
+access rights to it. This install is a full EPD 7.3 installation, and any EPD
+package or other Python package can be installed into it. The downside is
+that it will not contain any custom packages which may already have been
+installed into your existing Python environment. Whether this is an issue
+depends on how much you have customized your existing EPD installation.
+
+If you have this problem and would like to use this workaround, but have
+already started the EPD GUI and have already chosen to use an existing EPD
+install, see :ref:`changing_interpreter_path`
+
+Workaround method two primarily applies to Mac OS systems and is for users
+comfortable with the UNIX permission system. This workaround is to change
+ownership of the EPD installation to your user account so that you have write
+permission. The command looks something like this::
+
+    chown -R userid /Library/Frameworks/Python
+    
+where *userid* is your user ID. This method also works on Linux systems,
+though on Linux the earlier installers did not default to using root
+permissions, so if the install was installed with root access it is likely
+that it was done for a reason. Again, this method should only be used by
+users familiar with the UNIX permissions model and the potential security
+issues with changing file ownership.
+
+The final workaround method applies to Mac OS and Linux systems. These
+operating systems typically include a command named 'sudo' which allows users
+to execute commands with root permission. This command can be used with the
+standard ``enpkg`` command to install and uninstall Python packages.
+
+For example, to install the package *mpich*, the command would be::
+
+    sudo enpkg mpich
+    
+This command must be used in place of the package manager to install into
+EPD environments where the user does not have write permission.
+
+Indentation lost when copied from editor, pasted into a rich text editor
+------------------------------------------------------------------------
+
+When indented text is copied or dragged from the Code Editor window, and
+pasted or dropped into an HTML-aware document (e.g. gmail in rich-text mode),
+then all indentation is lost. Workarounds are (1) to use "paste and match
+style" (Mac OS); or (2) to switch the targeted editor from rich text
+formatting to plain text (e.g. in gmail); or (3) to first paste the text into
+a plain text editor such as Notepad, and then copy it from there; or (4) to
+use a clipboard utility to ignore or remove HTML formatted data from the
+clipboard. What these workarounds have in common is that they force the paste
+operation to use the clip's correctly indented text format rather than its
+incorrectly indented HTML format.
+
+Editor / Python: Run file behavior depends on whether file exists on disk
+---------------------------------------------------------------------------
+
+In the Code Editor, the Run File command (in the *Run menu*) acts differently
+depending on whether the current editor tab exists as a file on disk.
+
+If it has never been opened or saved as a file ("untitled" tab), then each
+line is executed as though it had been entered at the IPython prompt. Such
+commands run in the **IPython shell namespace**, where they have access to
+any names already defined in the shell, including variables and imports.
+
+In contrast, if this file has been opened or saved (filename in tab), the
+IPython magic %run command is used to execute the file from disk (after
+offering to save any unsaved changes.) The %run command, by default,
+creates its own **new namespace** for evaluating the file. The script will
+not have access to names already defined in shell.
+
+Thus newly entered code in the editor may behave differently depending on
+whether it has ever been saved.
+
+For example, if numpy has already been imported into the Python shell, either
+manually in the shell by typing::
+
+   import numpy
+   
+or automatically by running the shell in Pylab mode (the default), and
+if you type the following in a new ("untitled") editor tab::
+
+   print numpy.arange(5)
+
+and do the "Run File" command, then IPython will execute this line as if
+typed in the shell, where it will find "numpy", and create and print the
+array. But if you then save the file and run it again, the file will run in
+its own namespace, where "numpy" is not defined, so the code will fail with a
+NameError. The solution, of course, is to include the import in the file.
+
+Cant drag-and-drop arbitrary file types into the Code Editor
+-------------------------------------------------------------
+
+Any file which contains text can be opened in the Code Editor with the Open
+File command, or by double-clicking its name in the File Browser. However
+only files of recognized types (shown in the file type selector at the bottom
+left of the Code Editor window) can be opened by dragging them to the Code
+Editor.
+
+Windows
+^^^^^^^
+
+Windows installation: Stalled progress bar for EPD 7.3 (User Python Environment)
+--------------------------------------------------------------------------------
+
+Occasionally, the :ref:`installation of the bundled EPD 7.3 User Python
+Environment <install_pythonenv>` (initiated from the EPD 8.0 Graphical
+Environment) completes successfully, but the progress bar dialog stalls at
+completion. Workaround: wait for 10 minutes to ensure that the installation
+is not still running, then quit the EPD GUI and restart it.
+
+Windows: How to uninstall EPD 8
+-------------------------------
+
+Previous versions of EPD contained an "Uninstall EPD 7.x" Start Menu
+shortcut. EPD 8 GUI and its bundled EPD 7.3 user Python environment do not
+contain uninstall shortcuts.
+
+To uninstall the GUI, use Add or Remove Programs in the Windows Control Panel.
+
+To uninstall the bundled EPD 7.3 user Python Environment (mandatorily or
+optionally installed from the EPD 8 GUI depending on whether a previous
+version of EPD 7 had already been installed), delete its installation folder
+(see :ref:`install_windows_location`), and manually remove references to it
+from the system and user paths.
+
+Windows on virtual machine in Mac OS: crash on tab completion
+-------------------------------------------------------------
+
+Repeated tab completion in the code editor can cause the GUI to crash. This
+has only been reported in Windows, running in a virtual machine in Mac OS.
+Under investigation.
+
+Mac OS
+^^^^^^
+
+Mac OS: How to Uninstall EPD 8
+------------------------------
+
+EPD 8 consists of two components: the graphical environment and the user Python environment.
+Each of these can be uninstalled independently if desired.
+
+The graphical environment is installed in ``/Applications/EPD``.  If you do not wish to use
+this piece of EPD it can be uninstalled by dragging it to the Mac OS trash can.
+
+The graphical environment requires an installation of the EPD user Python environment.  This
+can be an existing EPD 7.x install or a newly installed environmented. When the GUI starts
+it will prompt you to install a Python environment if none are available.
+
+If you wish to uninstall a user Python environment, the default location is under each user's
+account in ``Library/EPD``. Each Python environment is installed under this directory and
+named for the EPD version and machine architecture ('x86' for 32-bit and 'x86_64' for 64-bit).  
+For example, a 32-bit install of EPD 7.3 is named '7.3-x86'.  Drag the folder for the Python
+environment you want to remove to the Mac OS trash can.
+
+Mac OS: GUI crashes when docking task pane (file browser, Python shell)
+-----------------------------------------------------------------------
+
+A task pane is a subwindow whose frame can be dragged to a new position
+within a larger window ("docked"), or to float beside the window
+(undocked). Three examples in the Code Editor window are the File
+browser, the Python shell, and the Documentation Browser. On Mac OS, such
+docking or undocking will occasionally cause the GUI to crash. Under
+investigation.
+
+Mac OS: "Too many files open" error in Code Editor
+--------------------------------------------------
+
+A problem in the implementation of the service for detecting changes to open files causes
+it to hold too many file handles at once.  As a result, this error can occur in two ways.
+One, if many tabs are opened (40+) at once this error may occur.  
+
+Similarly, if a similar number of tabs are open and many of the files those tabs are 
+editing change simultaneously this error may occur.  This most often happens when an 
+external tool modifies many files in a given directory, such as when a source code 
+control tool (SubVersion, Git, etc) updates the files in a directory.
+
+Linux
+^^^^^
+
+Linux: installation issue 
+-------------------------
+
+On Linux, the installation script fails if it is run in a directory whose
+name contains spaces. This is not supported at present.
+
+
+..
+   Local Variables:
+   mode: rst
+   indent-tabs-mode: nil
+   sentence-end-double-space: nil
+   fill-column: 80
+   End:

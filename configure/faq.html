@@ -1,0 +1,241 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Tips, Tricks, and Frequently Asked Questions &mdash; EPD 8.0.0-devel documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '8.0.0-devel',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="EPD 8.0.0-devel documentation" href="../index.html" />
+    <link rel="up" title="Advanced Topics" href="../advanced.html" />
+    <link rel="next" title="EPD 8 beta Release Notes" href="release-notes.html" />
+    <link rel="prev" title="Advanced Topics" href="../advanced.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="release-notes.html" title="EPD 8 beta Release Notes"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../advanced.html" title="Advanced Topics"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">EPD 8.0.0-devel documentation</a> &raquo;</li>
+          <li><a href="../advanced.html" accesskey="U">Advanced Topics</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="tips-tricks-and-frequently-asked-questions">
+<span id="faq"></span><h1>Tips, Tricks, and Frequently Asked Questions<a class="headerlink" href="#tips-tricks-and-frequently-asked-questions" title="Permalink to this headline">¶</a></h1>
+<p>This section provides answers to specific questions raised by early users,
+tips for using the environment and other specific suggestions.</p>
+<div class="section" id="what-is-the-difference-between-the-epd-and-epd-free-installers">
+<span id="faq-epd-vs-epd-free"></span><h2>What is the difference between the EPD and EPD Free installers?<a class="headerlink" href="#what-is-the-difference-between-the-epd-and-epd-free-installers" title="Permalink to this headline">¶</a></h2>
+<p>Both installers include exactly the same graphical environment and the same
+version of Python in the user Python environment. The only difference is in
+the number of Python packages installed by default in the user Python
+environment. EPD Free installs over 30 of the most popular packages in
+the user Python environment.
+Subscribers can then use the Package Manager or the enpkg command line
+utility to add any additional packages found in the EPD Subscriber
+Repository.</p>
+<p>The full EPD installer includes over 100 additional packages from the EPD
+Subscriber Repository pre-installed in the user Python environment. The full
+installer is provided as a convenience for users who want to install a large
+number of packages initially and for corporate licensees who want to speed up
+installation by storing a local copy of the full installer.</p>
+<p>A full listing of EPD (and EPD Free) packages is available at <a class="reference external" href="http://www.enthought.com/products/epdlibraries.php">EPD Package
+Index</a>. All EPD users
+can also use enpkg to install thousands of packages from Enthought&#8217;s
+selective mirror of <a class="reference external" href="http://pypi.python.org/pypi">PyPI - the Python Package Index</a>.</p>
+</div>
+<div class="section" id="what-is-the-difference-between-the-epd-gui-and-the-user-python-environment">
+<span id="faq-epd-arch"></span><h2>What is the difference between the EPD GUI and the User Python Environment?<a class="headerlink" href="#what-is-the-difference-between-the-epd-gui-and-the-user-python-environment" title="Permalink to this headline">¶</a></h2>
+<p>The EPD 8 working environment consists of two major components: the EPD
+Graphical Environment (GUI), and the user Python environment. The user Python
+environment is the traditional Enthought Python Distribution, which is a
+standard Python environment with additional packages pre-installed. The GUI
+is written in Python, but the Python that it runs under is independent of the
+user Python environment, and is not user extensible; it only contains those
+modules necessary for implementing the EPD 8 GUI.</p>
+<div class="figure align-right">
+<img alt="../_images/faq-epd-arch-1.png" src="../_images/faq-epd-arch-1.png" />
+</div>
+<p>The figure to the right depicts this architecture. Notice that the system
+runs as two separate processes. The EPD GUI includes an &#8220;IPython front end&#8221;,
+specifically IPython&#8217;s <a class="reference external" href="http://ipython.org/ipython-doc/stable/interactive/qtconsole.html">QTConsole</a>, where
+you type commands and read the results. However your python commands are
+actually executed in a separate process (the &#8220;IPython kernel&#8221;, which runs in
+the user Python environment. This separation has two significant benefits:</p>
+<p>First, if anything goes wrong in code being executed in the user Python
+environment, it will not impact the GUI and will not result in the loss of
+any unsaved changes. From the GUI the user Python environment (&#8220;kernel&#8221;) can
+be re-started if needed.</p>
+<p>Second, keeping the GUI and user Python environments independent means there
+is no risk that package changes to one will cause code in the other to stop
+functioning. Updates to the GUI will not affect your user Python environment,
+and you can add, update, or remove packages from your user Python environment
+without risking the GUI&#8217;s operation.</p>
+</div>
+<div class="section" id="how-do-i-use-the-gui-with-different-user-python-environments">
+<span id="faq-change-pyenv"></span><span id="changing-interpreter-path"></span><h2>How do I use the GUI with different user Python environments?<a class="headerlink" href="#how-do-i-use-the-gui-with-different-user-python-environments" title="Permalink to this headline">¶</a></h2>
+<p>The first time the EPD GUI is launched it prompts for the selection or
+installation of a user Python environment, where all your Python code will
+run. This setting is saved in the EPD preferences.ini file and generally does
+not need to be changed. (<a class="reference internal" href="#pref-log-file-locations"><em>Where are the preference and log files located?</em></a>)</p>
+<p>However you might, for example, decide to try the EPD 8 GUI first with the
+EPD 7.3 that is bundled with the GUI, and then later with your previously
+installed EPD 7.2 installation. This is perfectly fine.</p>
+<p>If you do decide to select a different Python environment, this can be done
+by editing the preferences.ini file. To do so, open the file in any standard
+text editor (Notepad, TextEdit, vi, or similar) and look for the interpreter
+setting. The line will look something like one of these lines:</p>
+<div class="highlight-python"><pre>interpreter = c:\Python27\pythonw.exe
+interpreter = C:\Users\test\AppData\Local\Apps\Enthought Python\7.3-x86\pythonw.exe</pre>
+</div>
+<p><strong>Make sure that you exit the EPD GUI prior to editing this file, as the GUI
+will re-write the preferences on exit.</strong></p>
+<p>The easiest and safest way to change the interpreter setting is to delete
+this line, save the file in the (non-EPD GUI) text editor, then restart the
+EPD GUI. You will again be prompted to set up the user Python environment,
+and have the option to either select an existing environment or install a new
+one.</p>
+<p>Alternatively, you may directly edit the interpreter setting in
+preferences.ini, to specify the path to a different EPD Python interpreter.
+On Mac OSX and Linux the path should point to an executable named
+python. On Windows the executable name should be pythonw.exe. The
+architecture (32- or 64-bit) of this EPD Python interpreter must be the
+same as your EPD 8 GUI installation&#8217;s.</p>
+<p>If you choose to use an existing EPD, please see <a class="reference internal" href="../quick-start/install_pythonenv.html#using-existing-epd"><em>Using an existing EPD installation as the User Python Environment</em></a>.</p>
+</div>
+<div class="section" id="where-are-the-preference-and-log-files-located">
+<span id="pref-log-file-locations"></span><h2>Where are the preference and log files located?<a class="headerlink" href="#where-are-the-preference-and-log-files-located" title="Permalink to this headline">¶</a></h2>
+<p>Usually, users will not need to reference these files. Most preferences are
+usually set from the Preferences dialog in the GUI. If there is a GUI error,
+a dialog should ask you if you want to report it, which should send the
+relevant log file to Enthought.</p>
+<p>However, if you need to access these files, here are their platform-specific
+locations:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="23%" />
+<col width="77%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Platform</th>
+<th class="head">Location</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Windows XP &amp; Vista</td>
+<td>C:\Documents and Settings\&lt;user&gt;Application Data\EPD\preference.ini</td>
+</tr>
+<tr class="row-odd"><td>Windows 7</td>
+<td>C:\Users\&lt;user&gt;\AppData\Roaming\EPD\preferences.ini</td>
+</tr>
+<tr class="row-even"><td>Mac OS</td>
+<td>~/.epd/preferences.ini</td>
+</tr>
+<tr class="row-odd"><td>Linux</td>
+<td>~/.epd/preferences.ini</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Tips, Tricks, and Frequently Asked Questions</a><ul>
+<li><a class="reference internal" href="#what-is-the-difference-between-the-epd-and-epd-free-installers">What is the difference between the EPD and EPD Free installers?</a></li>
+<li><a class="reference internal" href="#what-is-the-difference-between-the-epd-gui-and-the-user-python-environment">What is the difference between the EPD GUI and the User Python Environment?</a></li>
+<li><a class="reference internal" href="#how-do-i-use-the-gui-with-different-user-python-environments">How do I use the GUI with different user Python environments?</a></li>
+<li><a class="reference internal" href="#where-are-the-preference-and-log-files-located">Where are the preference and log files located?</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../advanced.html"
+                        title="previous chapter">Advanced Topics</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="release-notes.html"
+                        title="next chapter">EPD 8 beta Release Notes</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/configure/faq.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="release-notes.html" title="EPD 8 beta Release Notes"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../advanced.html" title="Advanced Topics"
+             >previous</a> |</li>
+        <li><a href="../index.html">EPD 8.0.0-devel documentation</a> &raquo;</li>
+          <li><a href="../advanced.html" >Advanced Topics</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011-2012, Enthought Inc..
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+  </body>
+</html>

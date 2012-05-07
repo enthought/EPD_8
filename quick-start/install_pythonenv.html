@@ -1,0 +1,213 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Setting up the User Python Environment and entering Enthought login information &mdash; EPD 8.0.0-devel documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '8.0.0-devel',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="EPD 8.0.0-devel documentation" href="../index.html" />
+    <link rel="up" title="Step-by-Step Installation" href="install_overview.html" />
+    <link rel="next" title="Updating the EPD 8 GUI" href="updating_epd_gui.html" />
+    <link rel="prev" title="Linux Installation" href="install_linux.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="updating_epd_gui.html" title="Updating the EPD 8 GUI"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="install_linux.html" title="Linux Installation"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">EPD 8.0.0-devel documentation</a> &raquo;</li>
+          <li><a href="../quick-start.html" >Quick Start Topics</a> &raquo;</li>
+          <li><a href="install_overview.html" accesskey="U">Step-by-Step Installation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="setting-up-the-user-python-environment-and-entering-enthought-login-information">
+<span id="install-pythonenv"></span><h1>Setting up the User Python Environment and entering Enthought login information<a class="headerlink" href="#setting-up-the-user-python-environment-and-entering-enthought-login-information" title="Permalink to this headline">¶</a></h1>
+<p>The second step in installing EPD 8 is to set up the &#8220;user Python
+environment,&#8221; where all your Python code will run. This is a standard Python
+installation from the Enthought Python Distribution, to which you can also
+add additional Python packages. (We call it the &#8220;user Python environment&#8221;
+to distinguish it from the Python used internally by the GUI- these are
+separate so that changes to the GUI&#8217;s Python and changes to your user Python
+environment will not conflict with each other. For more details, see
+&#8220;What is the difference between the GUI and User Python Environment?&#8221;.)</p>
+<p>When you first launch the EPD 8 GUI, you will see a configuration dialog that
+allows you to configure the user Python environment and (optionally) set up
+or specify an Enthought.com account:</p>
+<img alt="../_images/py-install-1.png" src="../_images/py-install-1.png" />
+<p>The upper portion of the dialog window provides the option either to install
+the user Python environment or to use an existing EPD installation.</p>
+<div class="section" id="using-an-existing-epd-installation-as-the-user-python-environment">
+<span id="using-existing-epd"></span><h2>Using an existing EPD installation as the User Python Environment<a class="headerlink" href="#using-an-existing-epd-installation-as-the-user-python-environment" title="Permalink to this headline">¶</a></h2>
+<p>Users with an existing EPD installation can choose to use that environment,
+provided that it is version 7.0 or higher and has the same architecture (32-
+or 64-bit) as your EPD 8 GUI. Using an existing installation can be
+convenient if you have customized it with additional Python packages. No
+changes are made to existing installations. You may update any packages in
+this installation using the EPD 8 Package Manager or the <cite>enpkg</cite> command line
+tool.</p>
+<p><strong>IMPORTANT: In this early beta release, if you choose to use an existing EPD
+installation as your User Python Environment, please perform the following
+manual step from a terminal window before you use the EPD GUI&#8217;s Package
+Manager features. (You can do this either before or after installing EPD 8.0
+GUI)</strong>:</p>
+<div class="highlight-python"><pre>enpkg --userpass
+enpkg enstaller</pre>
+</div>
+<p>This is a safe operation. The only installed package that this will affect
+will be Enthought&#8217;s <cite>enstaller</cite> package, which manages EPD&#8217;s package update
+mechanism.</p>
+<p><strong>Note:</strong> Users with existing EPD installs, particularly those users running
+on Mac OSX, should read this release note:
+<a class="reference internal" href="../configure/release-notes.html#package-manager-with-root-installs"><em>Package Manager fails with write error on existing EPD environment</em></a>.</p>
+</div>
+<div class="section" id="installing-a-new-epd-7-3-as-the-user-python-environment">
+<h2>Installing a new EPD 7.3 as the User Python Environment<a class="headerlink" href="#installing-a-new-epd-7-3-as-the-user-python-environment" title="Permalink to this headline">¶</a></h2>
+<p>Selecting “Install new User EPD Environment” will install a new Enthought Python
+environment. The default installation directory for the user Python
+environment varies with platform and is changeable to any writable location.
+The default install location for each platform is given in the table below:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="31%" />
+<col width="69%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Windows Version</th>
+<th class="head">Per-user Install Path</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Windows (admin rights, any version)</td>
+<td><tt class="docutils literal"><span class="pre">C:\Python27</span></tt></td>
+</tr>
+<tr class="row-odd"><td>Windows XP &amp; Vista</td>
+<td><tt class="docutils literal"><span class="pre">C:\Documents</span> <span class="pre">and</span> <span class="pre">Settings\&lt;username&gt;\LocalSettings\Apps\Enthought</span> <span class="pre">Python\EPDVer</span></tt></td>
+</tr>
+<tr class="row-even"><td>Windows 7</td>
+<td><tt class="docutils literal"><span class="pre">C:\Users\&lt;username&gt;\AppData\Apps\Enthought</span> <span class="pre">Python\EPDVer</span></tt></td>
+</tr>
+<tr class="row-odd"><td>Mac OSX</td>
+<td><tt class="docutils literal"><span class="pre">~/Library/EPD/EPDVer</span></tt></td>
+</tr>
+<tr class="row-even"><td>Linux</td>
+<td><tt class="docutils literal"><span class="pre">~/EPD/EPDVer</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>In the above table, <em>EPDVer</em> refers to a directory named for the specific
+version of the user EPD environment being installed. For this release, the
+versions are 7.3-x86 (32-bit) and 7.3-x86_64 (64-bit).</p>
+</div>
+<div class="section" id="entering-enthought-login-information">
+<h2>Entering Enthought login information<a class="headerlink" href="#entering-enthought-login-information" title="Permalink to this headline">¶</a></h2>
+<p>The lower portion of the configuration dialog shown above allows you to
+optionally provide login information for your Enthought.com account. Accounts
+are free to all users and provide access to updates of Python packages via
+the EPD 8 Package Manager and the <cite>enpkg</cite> command line tool. If you are
+already an EPD subscriber, you can select &#8220;I already have an Enthought
+account&#8221; and enter your username or email, and your password. If you select
+&#8220;I&#8217;ll do this later&#8221;, you can enter these later via the Preferences dialog.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Setting up the User Python Environment and entering Enthought login information</a><ul>
+<li><a class="reference internal" href="#using-an-existing-epd-installation-as-the-user-python-environment">Using an existing EPD installation as the User Python Environment</a></li>
+<li><a class="reference internal" href="#installing-a-new-epd-7-3-as-the-user-python-environment">Installing a new EPD 7.3 as the User Python Environment</a></li>
+<li><a class="reference internal" href="#entering-enthought-login-information">Entering Enthought login information</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="install_linux.html"
+                        title="previous chapter">Linux Installation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="updating_epd_gui.html"
+                        title="next chapter">Updating the EPD 8 GUI</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/quick-start/install_pythonenv.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="updating_epd_gui.html" title="Updating the EPD 8 GUI"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="install_linux.html" title="Linux Installation"
+             >previous</a> |</li>
+        <li><a href="../index.html">EPD 8.0.0-devel documentation</a> &raquo;</li>
+          <li><a href="../quick-start.html" >Quick Start Topics</a> &raquo;</li>
+          <li><a href="install_overview.html" >Step-by-Step Installation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011-2012, Enthought Inc..
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+  </body>
+</html>

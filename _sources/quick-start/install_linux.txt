@@ -1,0 +1,57 @@
+.. _install_linux:
+
+Linux Installation
+==================
+
+To install on Linux download either of the following EPD 8 installers:
+
+ - **epd_free-8.0-beta-linux-x86.sh**, **epd_free-8.0-beta-linux-x86_64.sh** (160MB) -
+   The EPD Free installer, which includes the GUI, plus 30 of the most popular
+   Python packages. These packages are free to everyone. EPD subscribers can
+   install additional packages from the EPD repository.
+   
+ - **epd-8.0-beta-linux-x86.sh**, **epd-8.0-beta-linux-x86_64.sh** (400MB) - The full
+   EPD installer includes all of EPD Free plus over 100 additional Python 
+   packages bundled into the installer. This installer is only available
+   to EPD subscribers.
+
+EPD subscribers may choose either installer. The EPD Free installer
+is smaller to download and allows subscribers to install additional Python 
+packages, using the EPD 8 Package Manager or the enpkg command line utility.
+Subscribers have full access to the EPD Python Package repository. The full
+EPD installer is provided as a convenience for subscribers who wish to
+download the full set of packages at once.
+
+Both the free and full installers are available in 32-bit ("x86") and 64-bit ("x86_64")
+versions. On 32-bit machines, you must use a 32-bit installer. On 64-bit machines, 
+you can often use either, but we recommend that you use a 64-bit installer. The
+reason is that many 64-bit Linux distributions do not include the necessary
+32-bit compatibility libraries by default so the 32-bit version will fail to run.
+
+EPD 8 for Linux is distributed as a self-extracting shell script. Once the
+file is downloaded the install can be started by executing the following
+command (or similar, depending on version)::
+
+    bash epd_free-8.0-beta-linux-x86.sh
+
+The installer will present the EPD End User License Agreement for approval.
+If you agree to the license, the next prompt is for the installation
+location. The default installation location is ``~/EPD_8.0``.
+
+Once EPD is installed, the GUI can be launched by executing the EPD
+application from the application directory. If EPD is installed in
+``~/EPD_8.0``, type: ::
+
+    ~/EPD_8.0/EPD 
+
+The installation process wraps up with the installation of the user Python
+environment, :ref:`described here <install_pythonenv>`, the first time the
+GUI application is started.
+
+..
+   Local Variables:
+   mode: rst
+   indent-tabs-mode: nil
+   sentence-end-double-space: nil
+   fill-column: 80
+   End:

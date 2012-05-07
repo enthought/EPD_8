@@ -1,0 +1,80 @@
+Scripting Engine User Overview
+==============================
+
+This is a fragment of documentation, apparently partly based on part of the
+developer doc scripting.rst, with the goal of being user-accessible. Still
+needs an overview, definition of terms, etc.
+
+Scripting engine - behind the scenes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The scripting engine manages scriptable objects and records their actions.
+Objects need to be explicitly registered with the scripting engine for their
+actions to be recorded. When an object is registered with the scripting
+engine, the following steps are taken:
+
+1. The object is associated with an accessor function.
+
+#. All methods decorated with ``recordable`` are given references to the engine.
+
+#. All traits with ``recordable`` metadata are assigned listeners.
+
+#. All traits with ``scriptable`` metadata are recursively registered as
+   children of the object. If they have ``script_accessor`` metadata, accessor
+   functions are also stored. Listeners are installed to ensure that the traits
+   are registered and unregistered as appropriate when changed.
+
+
+Note that a trait may be both ``recordable`` and ``scriptable``, but this use
+case does not seem likely. Generally, one will be using methods or trait
+assignment for scripting an object, but not both.
+
+Objects registered directly with the engine will be called toplevel objects, in
+contrast to child objects that are registered indirectly via the above
+procedure. Attempting to register a toplevel object twice is an error, and an
+exception will be raised. However, since non-toplevel objects will be registered
+and unregistered on the fly, this approach is not acceptable in general. If
+there is a collision between non-toplevel objects, we will log a warning and use
+the most recently registered path when peforming name resolution.
+
+The name resolution procedure for recordable method calls and trait assignments
+is as follows:
+
+1. If the object has a name in the engine's namespace, use it.
+
+#. If the object has a global accessor function registered, use it.
+
+#. Otherwise, the engine must know about the object's parent--this is enforced
+   by the registration procedure above. Recurse on the parent.
+
+Proxy methods
++++++++++++++
+
+In order to be able to record calls to methods of widgets, which we do not wish
+to register with the scripting engine, additional proxy methods are added to the
+widgets. These proxy methods call methods of the delegate of the widget, which
+are recordable and simply call the appropriate methods of the child widget with
+suitable arguments. For an example, look at the ``_find_proxy`` method of the
+``advanced_code_widget``.
+
+Accessing registered objects
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Canopy's application and file handling service are registered as top-level
+objects when canopy starts up and they can be accessed using their accessor
+functions, ``get_application`` and ``get_file_service``. Also, the currently
+active task can be accessed using the ``get_active_task`` function.
+
+Once the application is available, any task or service of the application can be
+accessed using the applications methods like ``get_task``, ``get_plugin`` and
+``activate_task``. Following are the various tasks available in canopy and their
+ids.
+
+- Code Editor, 'canopy.code_editor'
+- Documentation Browser, 'canopy.doc_browser_pane'
+- Integrated Code Editor, 'canopy.integrated_code_editor'
+- Help window, 'canopy.help'
+- Package Manager, 'canopy.package_manager'
+- Welcome window, 'canopy.welcome'
+- Macro editor, 'canopy.scripting_ui'
+- Python Frontend, 'canopy.python_frontend'

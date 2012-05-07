@@ -1,0 +1,157 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Linux Installation &mdash; EPD 8.0.0-devel documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '8.0.0-devel',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="EPD 8.0.0-devel documentation" href="../index.html" />
+    <link rel="up" title="Step-by-Step Installation" href="install_overview.html" />
+    <link rel="next" title="Setting up the User Python Environment and entering Enthought login information" href="install_pythonenv.html" />
+    <link rel="prev" title="Mac OSX Installation" href="install_macos.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="install_pythonenv.html" title="Setting up the User Python Environment and entering Enthought login information"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="install_macos.html" title="Mac OSX Installation"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">EPD 8.0.0-devel documentation</a> &raquo;</li>
+          <li><a href="../quick-start.html" >Quick Start Topics</a> &raquo;</li>
+          <li><a href="install_overview.html" accesskey="U">Step-by-Step Installation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="linux-installation">
+<span id="install-linux"></span><h1>Linux Installation<a class="headerlink" href="#linux-installation" title="Permalink to this headline">¶</a></h1>
+<p>To install on Linux download either of the following EPD 8 installers:</p>
+<blockquote>
+<div><ul class="simple">
+<li><strong>epd_free-8.0-beta-linux-x86.sh</strong>, <strong>epd_free-8.0-beta-linux-x86_64.sh</strong> (160MB) -
+The EPD Free installer, which includes the GUI, plus 30 of the most popular
+Python packages. These packages are free to everyone. EPD subscribers can
+install additional packages from the EPD repository.</li>
+<li><strong>epd-8.0-beta-linux-x86.sh</strong>, <strong>epd-8.0-beta-linux-x86_64.sh</strong> (400MB) - The full
+EPD installer includes all of EPD Free plus over 100 additional Python
+packages bundled into the installer. This installer is only available
+to EPD subscribers.</li>
+</ul>
+</div></blockquote>
+<p>EPD subscribers may choose either installer. The EPD Free installer
+is smaller to download and allows subscribers to install additional Python
+packages, using the EPD 8 Package Manager or the enpkg command line utility.
+Subscribers have full access to the EPD Python Package repository. The full
+EPD installer is provided as a convenience for subscribers who wish to
+download the full set of packages at once.</p>
+<p>Both the free and full installers are available in 32-bit (&#8220;x86&#8221;) and 64-bit (&#8220;x86_64&#8221;)
+versions. On 32-bit machines, you must use a 32-bit installer. On 64-bit machines,
+you can often use either, but we recommend that you use a 64-bit installer. The
+reason is that many 64-bit Linux distributions do not include the necessary
+32-bit compatibility libraries by default so the 32-bit version will fail to run.</p>
+<p>EPD 8 for Linux is distributed as a self-extracting shell script. Once the
+file is downloaded the install can be started by executing the following
+command (or similar, depending on version):</p>
+<div class="highlight-python"><pre>bash epd_free-8.0-beta-linux-x86.sh</pre>
+</div>
+<p>The installer will present the EPD End User License Agreement for approval.
+If you agree to the license, the next prompt is for the installation
+location. The default installation location is <tt class="docutils literal"><span class="pre">~/EPD_8.0</span></tt>.</p>
+<p>Once EPD is installed, the GUI can be launched by executing the EPD
+application from the application directory. If EPD is installed in
+<tt class="docutils literal"><span class="pre">~/EPD_8.0</span></tt>, type:</p>
+<div class="highlight-python"><pre>~/EPD_8.0/EPD</pre>
+</div>
+<p>The installation process wraps up with the installation of the user Python
+environment, <a class="reference internal" href="install_pythonenv.html#install-pythonenv"><em>described here</em></a>, the first time the
+GUI application is started.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="install_macos.html"
+                        title="previous chapter">Mac OSX Installation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="install_pythonenv.html"
+                        title="next chapter">Setting up the User Python Environment and entering Enthought login information</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/quick-start/install_linux.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="install_pythonenv.html" title="Setting up the User Python Environment and entering Enthought login information"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="install_macos.html" title="Mac OSX Installation"
+             >previous</a> |</li>
+        <li><a href="../index.html">EPD 8.0.0-devel documentation</a> &raquo;</li>
+          <li><a href="../quick-start.html" >Quick Start Topics</a> &raquo;</li>
+          <li><a href="install_overview.html" >Step-by-Step Installation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011-2012, Enthought Inc..
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,296 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Recording a simple macro for the code editor &mdash; EPD 8.0.0-devel documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '8.0.0-devel',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="EPD 8.0.0-devel documentation" href="../index.html" />
+    <link rel="up" title="Recording, Editing, and Writing Macros" href="macro_overview.html" />
+    <link rel="next" title="Code Editor Scripting Commands" href="editor-scripting-api.html" />
+    <link rel="prev" title="Recording, Editing, and Writing Macros" href="macro_overview.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="editor-scripting-api.html" title="Code Editor Scripting Commands"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="macro_overview.html" title="Recording, Editing, and Writing Macros"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">EPD 8.0.0-devel documentation</a> &raquo;</li>
+          <li><a href="../advanced.html" >Advanced Topics</a> &raquo;</li>
+          <li><a href="macro_overview.html" accesskey="U">Recording, Editing, and Writing Macros</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="recording-a-simple-macro-for-the-code-editor">
+<h1>Recording a simple macro for the code editor<a class="headerlink" href="#recording-a-simple-macro-for-the-code-editor" title="Permalink to this headline">¶</a></h1>
+<p>We would like to define a macro to insert a standard comment template (for
+separating sections of source code) at the current cursor location in the
+code editor. After the insertion, the cursor should be placed so that the
+user can immediately begin typing inside the template. Specifically, if we
+indicate the final cursor position with a &#8220;^&#8221;, the macro should produce the
+following:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c">######################################################################</span>
+<span class="c"># ^</span>
+<span class="c">######################################################################</span>
+</pre></div>
+</div>
+<p>The following steps would produce the desired macro:</p>
+<ol class="arabic simple">
+<li>Start recording by selecting <tt class="docutils literal"><span class="pre">Record</span> <span class="pre">macro</span></tt> from the Tools menu.</li>
+<li>Enter a name for the macro, for example &#8216;Comment_template&#8217;. The name
+must be a valid python name (note no spaces or punctuation other than
+underscore.) Then click on the &#8220;OK&#8221; button.</li>
+<li>Type &#8216;#&#8217; 70 times and press the Enter (Return) key to go to the next line.</li>
+<li>Type &#8216;# &#8216; and press the Enter (Return) key to go to the next line.</li>
+<li>Type &#8216;#&#8217; 70 times and press the up arrow key to move the cursor to the
+previous line.</li>
+<li>Finally, stop recording by selecting <tt class="docutils literal"><span class="pre">Stop</span> <span class="pre">Recording</span> <span class="pre">Macro</span></tt> from the
+Tools menu.</li>
+</ol>
+<p>We now have a macro that can insert our template at the current cursor
+position. To insert this template at at any desired location, move your
+cursor to that location, and select this macro from the Tools &gt; Run Macro
+menu. The macro will be stored, so we can do this at any time in the future.</p>
+<div class="section" id="macro-editor">
+<h2>Macro Editor<a class="headerlink" href="#macro-editor" title="Permalink to this headline">¶</a></h2>
+<p>Next, we can do more things such as adding a key-binding to run this macro,
+or edit the macro to perform (slightly) different actions. Select Tools &gt;
+Edit Macros to open EPD&#8217;s built-in Macro Editor.</p>
+<p>The Macro Editor contains a macro browser, which lists all the macros that we
+have recorded. Selecting a macro name in the macro browser lets us edit the
+properties of the macro. We can set a key-binding by clicking on the
+&#8216;Keybinding&#8217; box and pressing the desired key combination. We can specify
+whether the macro is available globally in EPD, or only in the code
+editor. Returning to the code editor and pressing the chosen key combination
+should insert the comment template.</p>
+<p>The macro editor also has toolbar buttons which let you run a macro, or start
+recording a new macro.</p>
+<p>To view a recorded macro, double click on its name in the macro browser. An
+editor tab opens, showing the macro&#8217;s source code.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="k">def</span> <span class="nf">run</span><span class="p">():</span>
+    <span class="n">code_task</span> <span class="o">=</span> <span class="n">get_active_task</span><span class="p">()</span>
+    <span class="n">code_editor</span> <span class="o">=</span> <span class="n">code_task</span><span class="o">.</span><span class="n">active_editor</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">code_editor</span><span class="o">.</span><span class="n">cursor</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">u&#39;#######################################################################&#39;</span><span class="p">)</span>
+    <span class="n">code_editor</span><span class="o">.</span><span class="n">autoindent_newline</span><span class="p">()</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">u&#39;# &#39;</span><span class="p">)</span>
+    <span class="n">code_editor</span><span class="o">.</span><span class="n">autoindent_newline</span><span class="p">()</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">u&#39;#######################################################################&#39;</span><span class="p">)</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">previous_line</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The macro is simply a Python function, which is run when the macro is called.
+The function locates a code_editor object and its cursor attribute, then
+calls methods on these objects to perform the desired actions.</p>
+<div class="section" id="editing-macros">
+<h3>Editing macros<a class="headerlink" href="#editing-macros" title="Permalink to this headline">¶</a></h3>
+<p>To make small changes to a macro without needing to re-record it, we can
+easily modify the macro source code. Continuing with the same example, if we
+want to make the long separator lines shorter, and also add another &#8216;Enter&#8217;
+keypress after the second long separator line, we might edit the macro to:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># -*- coding: utf-8 -*-</span>
+
+<span class="k">def</span> <span class="nf">run</span><span class="p">():</span>
+    <span class="n">SEP_LENGTH</span> <span class="o">=</span> <span class="mi">50</span>
+    <span class="n">code_task</span> <span class="o">=</span> <span class="n">get_active_task</span><span class="p">()</span>
+    <span class="n">code_editor</span> <span class="o">=</span> <span class="n">code_task</span><span class="o">.</span><span class="n">active_editor</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">code_editor</span><span class="o">.</span><span class="n">cursor</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">u&#39;#&#39;</span> <span class="o">*</span> <span class="n">SEP_LENGTH</span><span class="p">)</span>
+    <span class="n">code_editor</span><span class="o">.</span><span class="n">autoindent_newline</span><span class="p">()</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">u&#39;# &#39;</span><span class="p">)</span>
+    <span class="n">code_editor</span><span class="o">.</span><span class="n">autoindent_newline</span><span class="p">()</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">u&#39;#&#39;</span> <span class="o">*</span> <span class="n">SEP_LENGTH</span><span class="p">)</span>
+    <span class="n">code_editor</span><span class="o">.</span><span class="n">autoindent_newline</span><span class="p">()</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">previous_line</span><span class="p">(</span><span class="n">count</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here we&#8217;ve created more maintainable separator strings, and we&#8217;ve introduced
+a &#8216;count&#8217; parameter for the &#8216;cursor.previous_line&#8217; method, to move the cursor
+up two lines.</p>
+<p>Recording and editing macros for the code editor, like this, is a good way to
+get started. Next, you can move on to writing code editor macros from
+scratch. Later (not yet documented), you can write macros for other parts of
+EPD GUI, and for applications based on it.</p>
+</div>
+<div class="section" id="writing-macros-from-scratch">
+<h3>Writing macros from scratch<a class="headerlink" href="#writing-macros-from-scratch" title="Permalink to this headline">¶</a></h3>
+<p>Writing macros from scratch is straightforward if you know a little Python. In
+the Macro Editor&#8217;s File Menu, select <tt class="docutils literal"><span class="pre">New</span> <span class="pre">Macro</span></tt>. After you name your new
+macro, you will be shown a do-nothing macro, which you can edit to do what you
+want.</p>
+<p>Many of the commands and objects which are useful in writing code editor
+macros are described at <a class="reference internal" href="editor-scripting-api.html#code-editor-scripting-commands"><em>Code Editor Scripting Commands</em></a>.</p>
+<p>Commands for writing macros in the IPython pane are described at
+<a class="reference internal" href="ipython-scripting-api.html#ipython-pane-scripting-commands"><em>IPython Pane Scripting Commands</em></a>.</p>
+<p><em>Please note that the scripting API in this beta version of EPD 8 GUI is
+likely to change in future releases. We plan for all recorded macros to be
+supported, but other current scripting commands may be changed.</em></p>
+<p>Here is an example of a code editor macro written from scratch, which wraps the
+current paragraph of text (delimited by blank lines) to 80 characters, with no
+left indent except perhaps on the first line. After it has run you may want to
+press the Escape key to remove the residual highlighting of blank lines.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">textwrap</span> <span class="kn">import</span> <span class="n">fill</span>
+
+<span class="k">def</span> <span class="nf">run</span><span class="p">():</span>
+    <span class="n">code_task</span> <span class="o">=</span> <span class="n">get_active_task</span><span class="p">()</span>
+    <span class="n">code_editor</span> <span class="o">=</span> <span class="n">code_task</span><span class="o">.</span><span class="n">active_editor</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">code_editor</span><span class="o">.</span><span class="n">cursor</span>
+
+    <span class="k">def</span> <span class="nf">current_line_text</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot; Returns text of the line under cursor.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">text_lines</span> <span class="o">=</span> <span class="n">code_editor</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">text_lines</span><span class="p">)</span> <span class="o">==</span> <span class="n">cursor</span><span class="o">.</span><span class="n">line</span><span class="p">():</span>
+            <span class="k">return</span> <span class="s">&#39;&#39;</span>
+        <span class="k">return</span> <span class="n">text_lines</span><span class="p">[</span><span class="n">cursor</span><span class="o">.</span><span class="n">line</span><span class="p">()]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+    <span class="c"># Go to the empty line before the current paragraph.</span>
+    <span class="c"># Don&#39;t move if already at empty line.</span>
+    <span class="k">if</span> <span class="n">current_line_text</span><span class="p">():</span>
+        <span class="n">code_editor</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">u&#39;^</span><span class="se">\\</span><span class="s">s*$&#39;</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">count</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">wrap</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+    <span class="c"># If no empty lines found, go to the first line.</span>
+    <span class="k">if</span> <span class="n">current_line_text</span><span class="p">():</span>
+        <span class="n">code_editor</span><span class="o">.</span><span class="n">goto_line</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">next_line</span><span class="p">()</span>
+    <span class="n">code_editor</span><span class="o">.</span><span class="n">goto_column</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">start</span> <span class="o">=</span> <span class="n">code_editor</span><span class="o">.</span><span class="n">line</span> <span class="c"># Save the starting line number</span>
+
+    <span class="c"># Look for the end of paragraph, by searching for empty line</span>
+    <span class="n">code_editor</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">u&#39;^</span><span class="se">\\</span><span class="s">s*$&#39;</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">wrap</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">last_line</span> <span class="o">=</span> <span class="n">current_line_text</span><span class="p">()</span>
+    <span class="c"># If no empty line found, go to last line of editor</span>
+    <span class="k">if</span> <span class="n">last_line</span><span class="p">:</span>
+        <span class="n">code_editor</span><span class="o">.</span><span class="n">goto_line</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">code_editor</span><span class="o">.</span><span class="n">line</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">code_editor</span><span class="o">.</span><span class="n">line</span>
+
+    <span class="n">num</span> <span class="o">=</span> <span class="n">end</span><span class="o">-</span><span class="n">start</span> <span class="ow">or</span> <span class="mi">1</span>
+    <span class="n">code_editor</span><span class="o">.</span><span class="n">goto_line</span><span class="p">(</span><span class="n">start</span><span class="p">)</span>
+    <span class="n">code_editor</span><span class="o">.</span><span class="n">goto_column</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">cursor</span><span class="o">.</span><span class="n">next_line</span><span class="p">(</span><span class="n">count</span><span class="o">=</span><span class="n">num</span><span class="p">,</span> <span class="n">select</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">code_editor</span><span class="o">.</span><span class="n">selection</span>
+
+    <span class="k">if</span> <span class="n">text</span><span class="p">:</span>
+        <span class="n">text_filled</span> <span class="o">=</span> <span class="n">fill</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">last_line</span><span class="p">:</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">text_filled</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">writeln</span><span class="p">(</span><span class="n">text_filled</span><span class="p">)</span>
+
+    <span class="c"># stop highlighting all empty lines</span>
+    <span class="n">code_editor</span><span class="o">.</span><span class="n">disable_find_replace</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Recording a simple macro for the code editor</a><ul>
+<li><a class="reference internal" href="#macro-editor">Macro Editor</a><ul>
+<li><a class="reference internal" href="#editing-macros">Editing macros</a></li>
+<li><a class="reference internal" href="#writing-macros-from-scratch">Writing macros from scratch</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="macro_overview.html"
+                        title="previous chapter">Recording, Editing, and Writing Macros</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="editor-scripting-api.html"
+                        title="next chapter">Code Editor Scripting Commands</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/configure/macro_howto.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="editor-scripting-api.html" title="Code Editor Scripting Commands"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="macro_overview.html" title="Recording, Editing, and Writing Macros"
+             >previous</a> |</li>
+        <li><a href="../index.html">EPD 8.0.0-devel documentation</a> &raquo;</li>
+          <li><a href="../advanced.html" >Advanced Topics</a> &raquo;</li>
+          <li><a href="macro_overview.html" >Recording, Editing, and Writing Macros</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011-2012, Enthought Inc..
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+  </body>
+</html>
