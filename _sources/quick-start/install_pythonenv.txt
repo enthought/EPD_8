@@ -51,10 +51,12 @@ mechanism.
 on Mac OSX, should read this release note:
 :ref:`package_manager_with_root_installs`.
 
+.. _user_python_env_default_loc:
+
 Installing a new EPD 7.3 as the User Python Environment
 -------------------------------------------------------
 
-Selecting “Install new User EPD Environment” will install a new Enthought Python
+Selecting Install new User EPD Environment will install a new Enthought Python
 environment. The default installation directory for the user Python
 environment varies with platform and is changeable to any writable location.
 The default install location for each platform is given in the table below:

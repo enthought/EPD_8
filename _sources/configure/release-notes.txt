@@ -6,13 +6,15 @@ EPD 8 beta Release Notes
 This section lists the uncorrected issues known at release time. Where
 possible, we suggest workarounds.
 
+.. contents:: Summary of release notes
+   
 All platforms
-^^^^^^^^^^^^^
+-------------
 
 .. _package_manager_with_root_installs:
 
 Package Manager fails with write error on existing EPD environment
-------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 When using the new GUI Package Manager, with a pre-existing EPD installation
 as the User Python Environment, in some cases Package Manager will fail,
@@ -71,7 +73,7 @@ This command must be used in place of the package manager to install into
 EPD environments where the user does not have write permission.
 
 Indentation lost when copied from editor, pasted into a rich text editor
-------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 When indented text is copied or dragged from the Code Editor window, and
 pasted or dropped into an HTML-aware document (e.g. gmail in rich-text mode),
@@ -85,7 +87,7 @@ operation to use the clip's correctly indented text format rather than its
 incorrectly indented HTML format.
 
 Editor / Python: Run file behavior depends on whether file exists on disk
----------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 In the Code Editor, the Run File command (in the *Run menu*) acts differently
 depending on whether the current editor tab exists as a file on disk.
@@ -121,7 +123,8 @@ its own namespace, where "numpy" is not defined, so the code will fail with a
 NameError. The solution, of course, is to include the import in the file.
 
 Cant drag-and-drop arbitrary file types into the Code Editor
--------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 
 Any file which contains text can be opened in the Code Editor with the Open
 File command, or by double-clicking its name in the File Browser. However
@@ -129,11 +132,24 @@ only files of recognized types (shown in the file type selector at the bottom
 left of the Code Editor window) can be opened by dragging them to the Code
 Editor.
 
+Chaco example 'Sample Visualization of Simulated Live Data Stream' does not work
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The last of the examples listed under the 'Chaco' package fails with the following
+error: ::
+
+  AttributeError: 'Viewer' object has no attribute 'Plot'
+
+This is a known issue in the Chaco package and will be fixed in the ETS 4.1.1
+release.  The Chaco package or ETS as a whole can be updated through the Package
+Manager UI.
+
+
 Windows
-^^^^^^^
+-------
 
 Windows installation: Stalled progress bar for EPD 7.3 (User Python Environment)
---------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Occasionally, the :ref:`installation of the bundled EPD 7.3 User Python
 Environment <install_pythonenv>` (initiated from the EPD 8.0 Graphical
@@ -141,8 +157,38 @@ Environment) completes successfully, but the progress bar dialog stalls at
 completion. Workaround: wait for 10 minutes to ensure that the installation
 is not still running, then quit the EPD GUI and restart it.
 
+Windows: Import of NumPy fails with error "module object has no attribute 'core'"
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This error occurs when typing "import numpy" at the IPython prompt (or invoking a
+script which does so) and having installed a new version of the user Python 
+environment (you selected 'install new' in the GUI that lets you select between 
+using an existing EPD installation and installing a new one).  The issue is that the 
+path to the 'Scripts' directory in the user Python environment was not correctly 
+added to the PATH environment variable.
+
+The PATH environment variable can be modified manually by right-clicking on
+"My Computer" (Windows XP) or "Computer" (Windows 7) and seleting 'Properties'.  
+On XP this displays the "System Properties" dialog; on Windows 7 it is necessary
+to click 'Advanced System Settings' on the left side of the displayed window.
+
+From the 'System Properties' dialog select the 'Advanced' tab and then click the
+'Environment Variables' button.  The displayed dialog window will let you extend
+the current setting of PATH with the path to the scripts directory. After changing
+this value it is usually necessarily to logout and log back in for the change to
+take effect.
+
+See :ref:`user_python_env_default_loc` for the default location of the user Python
+environment.  The path to be added to the PATH variable is this path plus 'Scripts'.
+For example, the default path on Windows 7 for a username of 'Test' is: ::
+
+    C:\Users\Test\AppData\Local\Apps\Enthought Python\7.3-x86_64\Scripts
+
+This issue will be corrected in the next release.
+
+
 Windows: How to uninstall EPD 8
--------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Previous versions of EPD contained an "Uninstall EPD 7.x" Start Menu
 shortcut. EPD 8 GUI and its bundled EPD 7.3 user Python environment do not
@@ -157,17 +203,17 @@ version of EPD 7 had already been installed), delete its installation folder
 from the system and user paths.
 
 Windows on virtual machine in Mac OS: crash on tab completion
--------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Repeated tab completion in the code editor can cause the GUI to crash. This
 has only been reported in Windows, running in a virtual machine in Mac OS.
 Under investigation.
 
 Mac OS
-^^^^^^
+------
 
 Mac OS: How to Uninstall EPD 8
-------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 EPD 8 consists of two components: the graphical environment and the user Python environment.
 Each of these can be uninstalled independently if desired.
@@ -186,7 +232,8 @@ For example, a 32-bit install of EPD 7.3 is named '7.3-x86'.  Drag the folder fo
 environment you want to remove to the Mac OS trash can.
 
 Mac OS: GUI crashes when docking task pane (file browser, Python shell)
------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 
 A task pane is a subwindow whose frame can be dragged to a new position
 within a larger window ("docked"), or to float beside the window
@@ -196,7 +243,8 @@ docking or undocking will occasionally cause the GUI to crash. Under
 investigation.
 
 Mac OS: "Too many files open" error in Code Editor
---------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 
 A problem in the implementation of the service for detecting changes to open files causes
 it to hold too many file handles at once.  As a result, this error can occur in two ways.
@@ -208,10 +256,32 @@ external tool modifies many files in a given directory, such as when a source co
 control tool (SubVersion, Git, etc) updates the files in a directory.
 
 Linux
-^^^^^
+-----
+
+Linux: UI crashes after 2-3 seconds on Ubuntu 11.10, 12.04 using Unity desktop
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+A compatibility issue between Qt and GTK causes the EPD 8 GUI to abort after the welcome window
+is displayed on some Ubuntu 11.10 and 12.04 systems.  This issue occurs if the Unity desktop
+is being used and the system is set to use the default Qt style.
+
+The workaround is as follows:
+
+#. Go to Ubuntu Software Center and install Qt 4 Settings package if not already installed 
+   (type qt in search box, it should be the first item).
+#. Start Qt 4 Settings app. 
+#. On the first tab (Appearance), the first combo box is labeled "Select GUI Style". Change 
+   this setting from "Desktop Settings (Default)" to another style such as "Cleanlooks".
+#. Go to File -> Save, and then close the application.  
+ 
+When you start the EPD 8 GUI now it should work correctly.  
+ 
+We are working on a patch to automatically correct this issue.
+
 
 Linux: installation issue 
--------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
 
 On Linux, the installation script fails if it is run in a directory whose
 name contains spaces. This is not supported at present.
