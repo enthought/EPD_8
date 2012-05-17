@@ -7,7 +7,20 @@ This section lists the uncorrected issues known at release time. Where
 possible, we suggest workarounds.
 
 .. contents:: Summary of release notes
-   
+
+Resolved Issues - 8.0.1
+---------------   
+
+Linux: UI crashes after 2-3 seconds on Ubuntu 11.10, 12.04 using Unity desktop
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+A compatibility issue between Qt and GTK caused the EPD 8 GUI to abort after the welcome window
+is displayed on some Ubuntu 11.10 and 12.04 systems.  This issue occurred if the Unity desktop
+was being used and the system is set to use the default Qt style.
+
+The EPD 8 GUI now forces the Qt 'Cleanlooks' style if the system default is set to 'default'.
+
+
 All platforms
 -------------
 
@@ -141,8 +154,8 @@ error: ::
   AttributeError: 'Viewer' object has no attribute 'Plot'
 
 This is a known issue in the Chaco package and will be fixed in the ETS 4.1.1
-release.  The Chaco package or ETS as a whole can be updated through the Package
-Manager UI.
+release due out by the end of May, 2012.  The Chaco package or ETS as a whole can 
+be updated through the Package Manager UI.
 
 
 Windows
@@ -257,27 +270,6 @@ control tool (SubVersion, Git, etc) updates the files in a directory.
 
 Linux
 -----
-
-Linux: UI crashes after 2-3 seconds on Ubuntu 11.10, 12.04 using Unity desktop
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-A compatibility issue between Qt and GTK causes the EPD 8 GUI to abort after the welcome window
-is displayed on some Ubuntu 11.10 and 12.04 systems.  This issue occurs if the Unity desktop
-is being used and the system is set to use the default Qt style.
-
-The workaround is as follows:
-
-#. Go to Ubuntu Software Center and install Qt 4 Settings package if not already installed 
-   (type qt in search box, it should be the first item).
-#. Start Qt 4 Settings app. 
-#. On the first tab (Appearance), the first combo box is labeled "Select GUI Style". Change 
-   this setting from "Desktop Settings (Default)" to another style such as "Cleanlooks".
-#. Go to File -> Save, and then close the application.  
- 
-When you start the EPD 8 GUI now it should work correctly.  
- 
-We are working on a patch to automatically correct this issue.
-
 
 Linux: installation issue 
 ^^^^^^^^^^^^^^^^^^^^^^^^^
