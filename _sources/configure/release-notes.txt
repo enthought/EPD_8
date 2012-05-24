@@ -8,8 +8,39 @@ possible, we suggest workarounds.
 
 .. contents:: Summary of release notes
 
+Resolved Issues - 8.0.2
+-----------------------
+
+Reduced startup time for Package Manager and enpkg utility
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The startup time for the graphical Package Manager and the command line enpkg utility
+have been significantly reduced when used over slower networks by turning on caching
+and compression of the index files.  
+
+Windows: Import of NumPy fails with error "module object has no attribute 'core'"
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This error occurred if a new user Python environment was installed and the PATH environment
+variable was not setup to include the 'Scripts' directory in this installation.  This issue
+has been corrected and it is no longer necessary to set the PATH environment variable.
+
+Windows: GUI fails to restart after update on some machines
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+After applying a software update (Help -> Check for Updates) and pressing 'Install and Restart',
+the GUI would fail to restart correctly on some machines.  The issue was a missing DLL
+dependency that is not always available.  The relaunch mechanism is now less system dependent.
+
+Linux: Installation of user Python environment hangs when installing to existing directory
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+In the previous version if a new user Python environment was installed to an existing directory
+the installation would fail. The installation script incorrectly prompted for confirmation of
+an installation to an existing directory, resulting in a deadlock.
+
 Resolved Issues - 8.0.1
----------------   
+-----------------------
 
 Linux: UI crashes after 2-3 seconds on Ubuntu 11.10, 12.04 using Unity desktop
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -170,36 +201,6 @@ Environment) completes successfully, but the progress bar dialog stalls at
 completion. Workaround: wait for 10 minutes to ensure that the installation
 is not still running, then quit the EPD GUI and restart it.
 
-Windows: Import of NumPy fails with error "module object has no attribute 'core'"
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-This error occurs when typing "import numpy" at the IPython prompt (or invoking a
-script which does so) and having installed a new version of the user Python 
-environment (you selected 'install new' in the GUI that lets you select between 
-using an existing EPD installation and installing a new one).  The issue is that the 
-path to the 'Scripts' directory in the user Python environment was not correctly 
-added to the PATH environment variable.
-
-The PATH environment variable can be modified manually by right-clicking on
-"My Computer" (Windows XP) or "Computer" (Windows 7) and seleting 'Properties'.  
-On XP this displays the "System Properties" dialog; on Windows 7 it is necessary
-to click 'Advanced System Settings' on the left side of the displayed window.
-
-From the 'System Properties' dialog select the 'Advanced' tab and then click the
-'Environment Variables' button.  The displayed dialog window will let you extend
-the current setting of PATH with the path to the scripts directory. After changing
-this value it is usually necessarily to logout and log back in for the change to
-take effect.
-
-See :ref:`user_python_env_default_loc` for the default location of the user Python
-environment.  The path to be added to the PATH variable is this path plus 'Scripts'.
-For example, the default path on Windows 7 for a username of 'Test' is: ::
-
-    C:\Users\Test\AppData\Local\Apps\Enthought Python\7.3-x86_64\Scripts
-
-This issue will be corrected in the next release.
-
-
 Windows: How to uninstall EPD 8
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -273,7 +274,6 @@ Linux
 
 Linux: installation issue 
 ^^^^^^^^^^^^^^^^^^^^^^^^^
-
 
 On Linux, the installation script fails if it is run in a directory whose
 name contains spaces. This is not supported at present.
