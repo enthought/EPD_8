@@ -8,11 +8,108 @@ possible, we suggest workarounds.
 
 .. contents:: Summary of release notes
 
+Resolved Issues - 8.0.4
+-----------------------
+
+Package startup scripts installed incorrectly via Package Manager in 8.0.1 and 8.0.2
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+A bug in the Package Manager caused some packages to be installed incorrectly such that
+they will not work if started from the command prompt.  This issue affects packages that
+add a startup script in the 'bin' directory of the user Python
+environment. For example, installing Mayavi results in the addition of a script named 
+'mayavi2' being added to the ``bin`` directory. Each of these scripts contain the
+path to the Python interpreter to be used when they are run.
+
+In the 8.0.1 and 8.0.2 releases, installing these packages through Package Manager
+resulted in the path being set to the Python in the GUI's Python installation
+instead of the Python interpreter in the user Python environment.  This will
+cause most of these scripts to not run or to run incorrectly.
+
+We recommend uninstalling and re-installing any packages installed via Package Manager
+using either of these releases.  
+
+Enpkg --proxy switch does not work
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The ``enpkg`` utility supports a command line switch ``--proxy`` that allows it
+to work with some types of HTTP proxy servers.  This is necessary for users
+who are behind network firewalls and must use a proxy server to access external
+resources.
+
+This issue has been corrected and this option works again.
+
+In-app Account Registration Fails Silently
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+When the EPD 8 GUI is first started an EPD Setup dialog is display. This dialog allows
+the user to create a new account on Enthought.com or use an existing one. When the
+'Create Account' button was pressed it would normally work, but would fail silently if
+unable to connect to the internet. This has been corrected and an error is correctly
+displayed now.
+
+Windows: Mayavi desktop shortcut does not work
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+On Windows when the full (as opposed to the free) version of EPD 8 beta was installed,
+the desktop shortcut to Mavavi2 was created incorrectly.  Clicking the shortcut
+resulted in the error message "Windows cannot find the specified file".
+
+This issue has been corrected in this release.  To fix the shortcut, go to the
+Package Manager and uninstall, the re-install Mayavi.
+
+Windows (64-bit only): EPD Setup dialog not display when first used
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+When the EPD 8 GUI is started for the first time it display the EPD Setup dialog that
+lets the user select an existing EPD environment or install a new one, and configure
+an Enthought.com account  On 64-bit Windows systems where the package 'mingw' was not
+already installed this dialog failed to display due to a build error with a secondary
+package.  
+
+This build error has been corrected.
+
+
+Resolved Issues - 8.0.3
+-----------------------
+
+Failure with locale set to UTF-8
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+When the user's locale was setup so that ``LC_CTYPE`` was set to ``UTF-8`` 
+the UI would not launch. 
+
+Package startup scripts installed incorrectly via Package Manager in 8.0.1 and 8.0.2
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+A bug in the Package Manager caused some packages to be installed incorrectly such that
+they will not work if started from the command prompt.  This issue affects packages that
+add a startup script in the 'bin' directory of the user Python
+environment. For example, installing Mayavi results in the addition of a script named 
+'mayavi2' being added to the ``bin`` directory. Each of these scripts contain the
+path to the Python interpreter to be used when they are run.
+
+In the 8.0.1 and 8.0.2 releases, installing these packages through Package Manager
+resulted in the path being set to the Python in the GUI's Python installation
+instead of the Python interpreter in the user Python environment.  This will
+cause most of these scripts to not run or to run incorrectly.
+
+We recommend uninstalling and re-installing any packages installed via Package Manager
+using either of these releases.  
+
+   
+Inability to scroll help documentation main page
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The main documentation browser page was not scrollable and this has been
+fixed.
+
+
 Resolved Issues - 8.0.2
 -----------------------
 
 Reduced startup time for Package Manager and enpkg utility
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The startup time for the graphical Package Manager and the command line enpkg utility
 have been significantly reduced when used over slower networks by turning on caching
@@ -166,9 +263,9 @@ array. But if you then save the file and run it again, the file will run in
 its own namespace, where "numpy" is not defined, so the code will fail with a
 NameError. The solution, of course, is to include the import in the file.
 
-Cant drag-and-drop arbitrary file types into the Code Editor
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Can't drag-and-drop arbitrary file types into the Code Editor
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Any file which contains text can be opened in the Code Editor with the Open
 File command, or by double-clicking its name in the File Browser. However
@@ -245,9 +342,9 @@ named for the EPD version and machine architecture ('x86' for 32-bit and 'x86_64
 For example, a 32-bit install of EPD 7.3 is named '7.3-x86'.  Drag the folder for the Python
 environment you want to remove to the Mac OS trash can.
 
-Mac OS: GUI crashes when docking task pane (file browser, Python shell)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Mac OS: GUI crashes when docking task pane (file browser, Python shell)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\
 
 A task pane is a subwindow whose frame can be dragged to a new position
 within a larger window ("docked"), or to float beside the window
@@ -256,9 +353,9 @@ browser, the Python shell, and the Documentation Browser. On Mac OS, such
 docking or undocking will occasionally cause the GUI to crash. Under
 investigation.
 
+
 Mac OS: "Too many files open" error in Code Editor
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
 
 A problem in the implementation of the service for detecting changes to open files causes
 it to hold too many file handles at once.  As a result, this error can occur in two ways.
@@ -278,6 +375,23 @@ Linux: installation issue
 On Linux, the installation script fails if it is run in a directory whose
 name contains spaces. This is not supported at present.
 
+Linux: EPD GUI does not start: ImportError: libpng12.so.0
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+On some very new linux distributions (most notably Fedora 17), a newer
+version of libpng is installed by default which is not yet compatible with
+EPD GUI. You may see the following error message on the console on
+starting the GUI::
+
+   ImportError: libpng12.so.0: cannot open shared object file: No such file or directory
+
+You need to install the libpng 1.2 compatibility library to run EPD GUI
+using the following command::
+
+   su -c "yum -y install libpng-compat"
+
+Other distributions not having the libpng compatibility library need
+to follow similar steps.
 
 ..
    Local Variables:

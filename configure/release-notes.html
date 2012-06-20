@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>EPD 8 beta Release Notes &mdash; EPD 8.0.2-final documentation</title>
+    <title>EPD 8 beta Release Notes &mdash; EPD 8.0.4-final documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '8.0.2-final',
+        VERSION:     '8.0.4-final',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="EPD 8.0.2-final documentation" href="../index.html" />
+    <link rel="top" title="EPD 8.0.4-final documentation" href="../index.html" />
     <link rel="up" title="Advanced Topics" href="../advanced.html" />
     <link rel="next" title="Recording, Editing, and Writing Macros" href="macro_overview.html" />
     <link rel="prev" title="Tips, Tricks, and Frequently Asked Questions" href="faq.html" /> 
@@ -43,7 +43,7 @@
         <li class="right" >
           <a href="faq.html" title="Tips, Tricks, and Frequently Asked Questions"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">EPD 8.0.2-final documentation</a> &raquo;</li>
+        <li><a href="../index.html">EPD 8.0.4-final documentation</a> &raquo;</li>
           <li><a href="../advanced.html" accesskey="U">Advanced Topics</a> &raquo;</li> 
       </ul>
     </div>  
@@ -54,83 +54,176 @@
           <div class="body">
             
   <div class="section" id="epd-8-beta-release-notes">
-<span id="release-notes"></span><h1><a class="toc-backref" href="#id1">EPD 8 beta Release Notes</a><a class="headerlink" href="#epd-8-beta-release-notes" title="Permalink to this headline">¶</a></h1>
+<span id="release-notes"></span><h1><a class="toc-backref" href="#id2">EPD 8 beta Release Notes</a><a class="headerlink" href="#epd-8-beta-release-notes" title="Permalink to this headline">¶</a></h1>
 <p>This section lists the uncorrected issues known at release time. Where
 possible, we suggest workarounds.</p>
 <div class="contents topic" id="summary-of-release-notes">
 <p class="topic-title first">Summary of release notes</p>
 <ul class="simple">
-<li><a class="reference internal" href="#epd-8-beta-release-notes" id="id1">EPD 8 beta Release Notes</a><ul>
-<li><a class="reference internal" href="#resolved-issues-8-0-2" id="id2">Resolved Issues - 8.0.2</a><ul>
-<li><a class="reference internal" href="#reduced-startup-time-for-package-manager-and-enpkg-utility" id="id3">Reduced startup time for Package Manager and enpkg utility</a></li>
-<li><a class="reference internal" href="#windows-import-of-numpy-fails-with-error-module-object-has-no-attribute-core" id="id4">Windows: Import of NumPy fails with error &#8220;module object has no attribute &#8216;core&#8217;&#8221;</a></li>
-<li><a class="reference internal" href="#windows-gui-fails-to-restart-after-update-on-some-machines" id="id5">Windows: GUI fails to restart after update on some machines</a></li>
-<li><a class="reference internal" href="#linux-installation-of-user-python-environment-hangs-when-installing-to-existing-directory" id="id6">Linux: Installation of user Python environment hangs when installing to existing directory</a></li>
+<li><a class="reference internal" href="#epd-8-beta-release-notes" id="id2">EPD 8 beta Release Notes</a><ul>
+<li><a class="reference internal" href="#resolved-issues-8-0-4" id="id3">Resolved Issues - 8.0.4</a><ul>
+<li><a class="reference internal" href="#package-startup-scripts-installed-incorrectly-via-package-manager-in-8-0-1-and-8-0-2" id="id4">Package startup scripts installed incorrectly via Package Manager in 8.0.1 and 8.0.2</a></li>
+<li><a class="reference internal" href="#enpkg-proxy-switch-does-not-work" id="id5">Enpkg &#8211;proxy switch does not work</a></li>
+<li><a class="reference internal" href="#in-app-account-registration-fails-silently" id="id6">In-app Account Registration Fails Silently</a></li>
+<li><a class="reference internal" href="#windows-mayavi-desktop-shortcut-does-not-work" id="id7">Windows: Mayavi desktop shortcut does not work</a></li>
+<li><a class="reference internal" href="#windows-64-bit-only-epd-setup-dialog-not-display-when-first-used" id="id8">Windows (64-bit only): EPD Setup dialog not display when first used</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#resolved-issues-8-0-1" id="id7">Resolved Issues - 8.0.1</a><ul>
-<li><a class="reference internal" href="#linux-ui-crashes-after-2-3-seconds-on-ubuntu-11-10-12-04-using-unity-desktop" id="id8">Linux: UI crashes after 2-3 seconds on Ubuntu 11.10, 12.04 using Unity desktop</a></li>
+<li><a class="reference internal" href="#resolved-issues-8-0-3" id="id9">Resolved Issues - 8.0.3</a><ul>
+<li><a class="reference internal" href="#failure-with-locale-set-to-utf-8" id="id10">Failure with locale set to UTF-8</a></li>
+<li><a class="reference internal" href="#id1" id="id11">Package startup scripts installed incorrectly via Package Manager in 8.0.1 and 8.0.2</a></li>
+<li><a class="reference internal" href="#inability-to-scroll-help-documentation-main-page" id="id12">Inability to scroll help documentation main page</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#all-platforms" id="id9">All platforms</a><ul>
-<li><a class="reference internal" href="#package-manager-fails-with-write-error-on-existing-epd-environment" id="id10">Package Manager fails with write error on existing EPD environment</a></li>
-<li><a class="reference internal" href="#indentation-lost-when-copied-from-editor-pasted-into-a-rich-text-editor" id="id11">Indentation lost when copied from editor, pasted into a rich text editor</a></li>
-<li><a class="reference internal" href="#editor-python-run-file-behavior-depends-on-whether-file-exists-on-disk" id="id12">Editor / Python: Run file behavior depends on whether file exists on disk</a></li>
-<li><a class="reference internal" href="#cant-drag-and-drop-arbitrary-file-types-into-the-code-editor" id="id13">Cant drag-and-drop arbitrary file types into the Code Editor</a></li>
-<li><a class="reference internal" href="#chaco-example-sample-visualization-of-simulated-live-data-stream-does-not-work" id="id14">Chaco example &#8216;Sample Visualization of Simulated Live Data Stream&#8217; does not work</a></li>
+<li><a class="reference internal" href="#resolved-issues-8-0-2" id="id13">Resolved Issues - 8.0.2</a><ul>
+<li><a class="reference internal" href="#reduced-startup-time-for-package-manager-and-enpkg-utility" id="id14">Reduced startup time for Package Manager and enpkg utility</a></li>
+<li><a class="reference internal" href="#windows-import-of-numpy-fails-with-error-module-object-has-no-attribute-core" id="id15">Windows: Import of NumPy fails with error &#8220;module object has no attribute &#8216;core&#8217;&#8221;</a></li>
+<li><a class="reference internal" href="#windows-gui-fails-to-restart-after-update-on-some-machines" id="id16">Windows: GUI fails to restart after update on some machines</a></li>
+<li><a class="reference internal" href="#linux-installation-of-user-python-environment-hangs-when-installing-to-existing-directory" id="id17">Linux: Installation of user Python environment hangs when installing to existing directory</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#windows" id="id15">Windows</a><ul>
-<li><a class="reference internal" href="#windows-installation-stalled-progress-bar-for-epd-7-3-user-python-environment" id="id16">Windows installation: Stalled progress bar for EPD 7.3 (User Python Environment)</a></li>
-<li><a class="reference internal" href="#windows-how-to-uninstall-epd-8" id="id17">Windows: How to uninstall EPD 8</a></li>
-<li><a class="reference internal" href="#windows-on-virtual-machine-in-mac-os-crash-on-tab-completion" id="id18">Windows on virtual machine in Mac OS: crash on tab completion</a></li>
+<li><a class="reference internal" href="#resolved-issues-8-0-1" id="id18">Resolved Issues - 8.0.1</a><ul>
+<li><a class="reference internal" href="#linux-ui-crashes-after-2-3-seconds-on-ubuntu-11-10-12-04-using-unity-desktop" id="id19">Linux: UI crashes after 2-3 seconds on Ubuntu 11.10, 12.04 using Unity desktop</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#mac-os" id="id19">Mac OS</a><ul>
-<li><a class="reference internal" href="#mac-os-how-to-uninstall-epd-8" id="id20">Mac OS: How to Uninstall EPD 8</a></li>
-<li><a class="reference internal" href="#mac-os-gui-crashes-when-docking-task-pane-file-browser-python-shell" id="id21">Mac OS: GUI crashes when docking task pane (file browser, Python shell)</a></li>
-<li><a class="reference internal" href="#mac-os-too-many-files-open-error-in-code-editor" id="id22">Mac OS: &#8220;Too many files open&#8221; error in Code Editor</a></li>
+<li><a class="reference internal" href="#all-platforms" id="id20">All platforms</a><ul>
+<li><a class="reference internal" href="#package-manager-fails-with-write-error-on-existing-epd-environment" id="id21">Package Manager fails with write error on existing EPD environment</a></li>
+<li><a class="reference internal" href="#indentation-lost-when-copied-from-editor-pasted-into-a-rich-text-editor" id="id22">Indentation lost when copied from editor, pasted into a rich text editor</a></li>
+<li><a class="reference internal" href="#editor-python-run-file-behavior-depends-on-whether-file-exists-on-disk" id="id23">Editor / Python: Run file behavior depends on whether file exists on disk</a></li>
+<li><a class="reference internal" href="#can-t-drag-and-drop-arbitrary-file-types-into-the-code-editor" id="id24">Can&#8217;t drag-and-drop arbitrary file types into the Code Editor</a></li>
+<li><a class="reference internal" href="#chaco-example-sample-visualization-of-simulated-live-data-stream-does-not-work" id="id25">Chaco example &#8216;Sample Visualization of Simulated Live Data Stream&#8217; does not work</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#linux" id="id23">Linux</a><ul>
-<li><a class="reference internal" href="#linux-installation-issue" id="id24">Linux: installation issue</a></li>
+<li><a class="reference internal" href="#windows" id="id26">Windows</a><ul>
+<li><a class="reference internal" href="#windows-installation-stalled-progress-bar-for-epd-7-3-user-python-environment" id="id27">Windows installation: Stalled progress bar for EPD 7.3 (User Python Environment)</a></li>
+<li><a class="reference internal" href="#windows-how-to-uninstall-epd-8" id="id28">Windows: How to uninstall EPD 8</a></li>
+<li><a class="reference internal" href="#windows-on-virtual-machine-in-mac-os-crash-on-tab-completion" id="id29">Windows on virtual machine in Mac OS: crash on tab completion</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mac-os" id="id30">Mac OS</a><ul>
+<li><a class="reference internal" href="#mac-os-how-to-uninstall-epd-8" id="id31">Mac OS: How to Uninstall EPD 8</a></li>
+<li><a class="reference internal" href="#mac-os-too-many-files-open-error-in-code-editor" id="id32">Mac OS: &#8220;Too many files open&#8221; error in Code Editor</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#linux" id="id33">Linux</a><ul>
+<li><a class="reference internal" href="#linux-installation-issue" id="id34">Linux: installation issue</a></li>
+<li><a class="reference internal" href="#linux-epd-gui-does-not-start-importerror-libpng12-so-0" id="id35">Linux: EPD GUI does not start: ImportError: libpng12.so.0</a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 </div>
+<div class="section" id="resolved-issues-8-0-4">
+<h2><a class="toc-backref" href="#id3">Resolved Issues - 8.0.4</a><a class="headerlink" href="#resolved-issues-8-0-4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="package-startup-scripts-installed-incorrectly-via-package-manager-in-8-0-1-and-8-0-2">
+<h3><a class="toc-backref" href="#id4">Package startup scripts installed incorrectly via Package Manager in 8.0.1 and 8.0.2</a><a class="headerlink" href="#package-startup-scripts-installed-incorrectly-via-package-manager-in-8-0-1-and-8-0-2" title="Permalink to this headline">¶</a></h3>
+<p>A bug in the Package Manager caused some packages to be installed incorrectly such that
+they will not work if started from the command prompt.  This issue affects packages that
+add a startup script in the &#8216;bin&#8217; directory of the user Python
+environment. For example, installing Mayavi results in the addition of a script named
+&#8216;mayavi2&#8217; being added to the <tt class="docutils literal"><span class="pre">bin</span></tt> directory. Each of these scripts contain the
+path to the Python interpreter to be used when they are run.</p>
+<p>In the 8.0.1 and 8.0.2 releases, installing these packages through Package Manager
+resulted in the path being set to the Python in the GUI&#8217;s Python installation
+instead of the Python interpreter in the user Python environment.  This will
+cause most of these scripts to not run or to run incorrectly.</p>
+<p>We recommend uninstalling and re-installing any packages installed via Package Manager
+using either of these releases.</p>
+</div>
+<div class="section" id="enpkg-proxy-switch-does-not-work">
+<h3><a class="toc-backref" href="#id5">Enpkg &#8211;proxy switch does not work</a><a class="headerlink" href="#enpkg-proxy-switch-does-not-work" title="Permalink to this headline">¶</a></h3>
+<p>The <tt class="docutils literal"><span class="pre">enpkg</span></tt> utility supports a command line switch <tt class="docutils literal"><span class="pre">--proxy</span></tt> that allows it
+to work with some types of HTTP proxy servers.  This is necessary for users
+who are behind network firewalls and must use a proxy server to access external
+resources.</p>
+<p>This issue has been corrected and this option works again.</p>
+</div>
+<div class="section" id="in-app-account-registration-fails-silently">
+<h3><a class="toc-backref" href="#id6">In-app Account Registration Fails Silently</a><a class="headerlink" href="#in-app-account-registration-fails-silently" title="Permalink to this headline">¶</a></h3>
+<p>When the EPD 8 GUI is first started an EPD Setup dialog is display. This dialog allows
+the user to create a new account on Enthought.com or use an existing one. When the
+&#8216;Create Account&#8217; button was pressed it would normally work, but would fail silently if
+unable to connect to the internet. This has been corrected and an error is correctly
+displayed now.</p>
+</div>
+<div class="section" id="windows-mayavi-desktop-shortcut-does-not-work">
+<h3><a class="toc-backref" href="#id7">Windows: Mayavi desktop shortcut does not work</a><a class="headerlink" href="#windows-mayavi-desktop-shortcut-does-not-work" title="Permalink to this headline">¶</a></h3>
+<p>On Windows when the full (as opposed to the free) version of EPD 8 beta was installed,
+the desktop shortcut to Mavavi2 was created incorrectly.  Clicking the shortcut
+resulted in the error message &#8220;Windows cannot find the specified file&#8221;.</p>
+<p>This issue has been corrected in this release.  To fix the shortcut, go to the
+Package Manager and uninstall, the re-install Mayavi.</p>
+</div>
+<div class="section" id="windows-64-bit-only-epd-setup-dialog-not-display-when-first-used">
+<h3><a class="toc-backref" href="#id8">Windows (64-bit only): EPD Setup dialog not display when first used</a><a class="headerlink" href="#windows-64-bit-only-epd-setup-dialog-not-display-when-first-used" title="Permalink to this headline">¶</a></h3>
+<p>When the EPD 8 GUI is started for the first time it display the EPD Setup dialog that
+lets the user select an existing EPD environment or install a new one, and configure
+an Enthought.com account  On 64-bit Windows systems where the package &#8216;mingw&#8217; was not
+already installed this dialog failed to display due to a build error with a secondary
+package.</p>
+<p>This build error has been corrected.</p>
+</div>
+</div>
+<div class="section" id="resolved-issues-8-0-3">
+<h2><a class="toc-backref" href="#id9">Resolved Issues - 8.0.3</a><a class="headerlink" href="#resolved-issues-8-0-3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="failure-with-locale-set-to-utf-8">
+<h3><a class="toc-backref" href="#id10">Failure with locale set to UTF-8</a><a class="headerlink" href="#failure-with-locale-set-to-utf-8" title="Permalink to this headline">¶</a></h3>
+<p>When the user&#8217;s locale was setup so that <tt class="docutils literal"><span class="pre">LC_CTYPE</span></tt> was set to <tt class="docutils literal"><span class="pre">UTF-8</span></tt>
+the UI would not launch.</p>
+</div>
+<div class="section" id="id1">
+<h3><a class="toc-backref" href="#id11">Package startup scripts installed incorrectly via Package Manager in 8.0.1 and 8.0.2</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>A bug in the Package Manager caused some packages to be installed incorrectly such that
+they will not work if started from the command prompt.  This issue affects packages that
+add a startup script in the &#8216;bin&#8217; directory of the user Python
+environment. For example, installing Mayavi results in the addition of a script named
+&#8216;mayavi2&#8217; being added to the <tt class="docutils literal"><span class="pre">bin</span></tt> directory. Each of these scripts contain the
+path to the Python interpreter to be used when they are run.</p>
+<p>In the 8.0.1 and 8.0.2 releases, installing these packages through Package Manager
+resulted in the path being set to the Python in the GUI&#8217;s Python installation
+instead of the Python interpreter in the user Python environment.  This will
+cause most of these scripts to not run or to run incorrectly.</p>
+<p>We recommend uninstalling and re-installing any packages installed via Package Manager
+using either of these releases.</p>
+</div>
+<div class="section" id="inability-to-scroll-help-documentation-main-page">
+<h3><a class="toc-backref" href="#id12">Inability to scroll help documentation main page</a><a class="headerlink" href="#inability-to-scroll-help-documentation-main-page" title="Permalink to this headline">¶</a></h3>
+<p>The main documentation browser page was not scrollable and this has been
+fixed.</p>
+</div>
+</div>
 <div class="section" id="resolved-issues-8-0-2">
-<h2><a class="toc-backref" href="#id2">Resolved Issues - 8.0.2</a><a class="headerlink" href="#resolved-issues-8-0-2" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id13">Resolved Issues - 8.0.2</a><a class="headerlink" href="#resolved-issues-8-0-2" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="reduced-startup-time-for-package-manager-and-enpkg-utility">
-<h3><a class="toc-backref" href="#id3">Reduced startup time for Package Manager and enpkg utility</a><a class="headerlink" href="#reduced-startup-time-for-package-manager-and-enpkg-utility" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id14">Reduced startup time for Package Manager and enpkg utility</a><a class="headerlink" href="#reduced-startup-time-for-package-manager-and-enpkg-utility" title="Permalink to this headline">¶</a></h3>
 <p>The startup time for the graphical Package Manager and the command line enpkg utility
 have been significantly reduced when used over slower networks by turning on caching
 and compression of the index files.</p>
 </div>
 <div class="section" id="windows-import-of-numpy-fails-with-error-module-object-has-no-attribute-core">
-<h3><a class="toc-backref" href="#id4">Windows: Import of NumPy fails with error &#8220;module object has no attribute &#8216;core&#8217;&#8221;</a><a class="headerlink" href="#windows-import-of-numpy-fails-with-error-module-object-has-no-attribute-core" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id15">Windows: Import of NumPy fails with error &#8220;module object has no attribute &#8216;core&#8217;&#8221;</a><a class="headerlink" href="#windows-import-of-numpy-fails-with-error-module-object-has-no-attribute-core" title="Permalink to this headline">¶</a></h3>
 <p>This error occurred if a new user Python environment was installed and the PATH environment
 variable was not setup to include the &#8216;Scripts&#8217; directory in this installation.  This issue
 has been corrected and it is no longer necessary to set the PATH environment variable.</p>
 </div>
 <div class="section" id="windows-gui-fails-to-restart-after-update-on-some-machines">
-<h3><a class="toc-backref" href="#id5">Windows: GUI fails to restart after update on some machines</a><a class="headerlink" href="#windows-gui-fails-to-restart-after-update-on-some-machines" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id16">Windows: GUI fails to restart after update on some machines</a><a class="headerlink" href="#windows-gui-fails-to-restart-after-update-on-some-machines" title="Permalink to this headline">¶</a></h3>
 <p>After applying a software update (Help -&gt; Check for Updates) and pressing &#8216;Install and Restart&#8217;,
 the GUI would fail to restart correctly on some machines.  The issue was a missing DLL
 dependency that is not always available.  The relaunch mechanism is now less system dependent.</p>
 </div>
 <div class="section" id="linux-installation-of-user-python-environment-hangs-when-installing-to-existing-directory">
-<h3><a class="toc-backref" href="#id6">Linux: Installation of user Python environment hangs when installing to existing directory</a><a class="headerlink" href="#linux-installation-of-user-python-environment-hangs-when-installing-to-existing-directory" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id17">Linux: Installation of user Python environment hangs when installing to existing directory</a><a class="headerlink" href="#linux-installation-of-user-python-environment-hangs-when-installing-to-existing-directory" title="Permalink to this headline">¶</a></h3>
 <p>In the previous version if a new user Python environment was installed to an existing directory
 the installation would fail. The installation script incorrectly prompted for confirmation of
 an installation to an existing directory, resulting in a deadlock.</p>
 </div>
 </div>
 <div class="section" id="resolved-issues-8-0-1">
-<h2><a class="toc-backref" href="#id7">Resolved Issues - 8.0.1</a><a class="headerlink" href="#resolved-issues-8-0-1" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id18">Resolved Issues - 8.0.1</a><a class="headerlink" href="#resolved-issues-8-0-1" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="linux-ui-crashes-after-2-3-seconds-on-ubuntu-11-10-12-04-using-unity-desktop">
-<h3><a class="toc-backref" href="#id8">Linux: UI crashes after 2-3 seconds on Ubuntu 11.10, 12.04 using Unity desktop</a><a class="headerlink" href="#linux-ui-crashes-after-2-3-seconds-on-ubuntu-11-10-12-04-using-unity-desktop" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id19">Linux: UI crashes after 2-3 seconds on Ubuntu 11.10, 12.04 using Unity desktop</a><a class="headerlink" href="#linux-ui-crashes-after-2-3-seconds-on-ubuntu-11-10-12-04-using-unity-desktop" title="Permalink to this headline">¶</a></h3>
 <p>A compatibility issue between Qt and GTK caused the EPD 8 GUI to abort after the welcome window
 is displayed on some Ubuntu 11.10 and 12.04 systems.  This issue occurred if the Unity desktop
 was being used and the system is set to use the default Qt style.</p>
@@ -138,9 +231,9 @@ was being used and the system is set to use the default Qt style.</p>
 </div>
 </div>
 <div class="section" id="all-platforms">
-<h2><a class="toc-backref" href="#id9">All platforms</a><a class="headerlink" href="#all-platforms" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id20">All platforms</a><a class="headerlink" href="#all-platforms" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="package-manager-fails-with-write-error-on-existing-epd-environment">
-<span id="package-manager-with-root-installs"></span><h3><a class="toc-backref" href="#id10">Package Manager fails with write error on existing EPD environment</a><a class="headerlink" href="#package-manager-fails-with-write-error-on-existing-epd-environment" title="Permalink to this headline">¶</a></h3>
+<span id="package-manager-with-root-installs"></span><h3><a class="toc-backref" href="#id21">Package Manager fails with write error on existing EPD environment</a><a class="headerlink" href="#package-manager-fails-with-write-error-on-existing-epd-environment" title="Permalink to this headline">¶</a></h3>
 <p>When using the new GUI Package Manager, with a pre-existing EPD installation
 as the User Python Environment, in some cases Package Manager will fail,
 reporting that it is unable to write to the Python environment. This occurs
@@ -189,7 +282,7 @@ standard <tt class="docutils literal"><span class="pre">enpkg</span></tt> comman
 EPD environments where the user does not have write permission.</p>
 </div>
 <div class="section" id="indentation-lost-when-copied-from-editor-pasted-into-a-rich-text-editor">
-<h3><a class="toc-backref" href="#id11">Indentation lost when copied from editor, pasted into a rich text editor</a><a class="headerlink" href="#indentation-lost-when-copied-from-editor-pasted-into-a-rich-text-editor" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id22">Indentation lost when copied from editor, pasted into a rich text editor</a><a class="headerlink" href="#indentation-lost-when-copied-from-editor-pasted-into-a-rich-text-editor" title="Permalink to this headline">¶</a></h3>
 <p>When indented text is copied or dragged from the Code Editor window, and
 pasted or dropped into an HTML-aware document (e.g. gmail in rich-text mode),
 then all indentation is lost. Workarounds are (1) to use &#8220;paste and match
@@ -202,7 +295,7 @@ operation to use the clip&#8217;s correctly indented text format rather than its
 incorrectly indented HTML format.</p>
 </div>
 <div class="section" id="editor-python-run-file-behavior-depends-on-whether-file-exists-on-disk">
-<h3><a class="toc-backref" href="#id12">Editor / Python: Run file behavior depends on whether file exists on disk</a><a class="headerlink" href="#editor-python-run-file-behavior-depends-on-whether-file-exists-on-disk" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id23">Editor / Python: Run file behavior depends on whether file exists on disk</a><a class="headerlink" href="#editor-python-run-file-behavior-depends-on-whether-file-exists-on-disk" title="Permalink to this headline">¶</a></h3>
 <p>In the Code Editor, the Run File command (in the <em>Run menu</em>) acts differently
 depending on whether the current editor tab exists as a file on disk.</p>
 <p>If it has never been opened or saved as a file (&#8220;untitled&#8221; tab), then each
@@ -232,8 +325,8 @@ array. But if you then save the file and run it again, the file will run in
 its own namespace, where &#8220;numpy&#8221; is not defined, so the code will fail with a
 NameError. The solution, of course, is to include the import in the file.</p>
 </div>
-<div class="section" id="cant-drag-and-drop-arbitrary-file-types-into-the-code-editor">
-<h3><a class="toc-backref" href="#id13">Cant drag-and-drop arbitrary file types into the Code Editor</a><a class="headerlink" href="#cant-drag-and-drop-arbitrary-file-types-into-the-code-editor" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="can-t-drag-and-drop-arbitrary-file-types-into-the-code-editor">
+<h3><a class="toc-backref" href="#id24">Can&#8217;t drag-and-drop arbitrary file types into the Code Editor</a><a class="headerlink" href="#can-t-drag-and-drop-arbitrary-file-types-into-the-code-editor" title="Permalink to this headline">¶</a></h3>
 <p>Any file which contains text can be opened in the Code Editor with the Open
 File command, or by double-clicking its name in the File Browser. However
 only files of recognized types (shown in the file type selector at the bottom
@@ -241,7 +334,7 @@ left of the Code Editor window) can be opened by dragging them to the Code
 Editor.</p>
 </div>
 <div class="section" id="chaco-example-sample-visualization-of-simulated-live-data-stream-does-not-work">
-<h3><a class="toc-backref" href="#id14">Chaco example &#8216;Sample Visualization of Simulated Live Data Stream&#8217; does not work</a><a class="headerlink" href="#chaco-example-sample-visualization-of-simulated-live-data-stream-does-not-work" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id25">Chaco example &#8216;Sample Visualization of Simulated Live Data Stream&#8217; does not work</a><a class="headerlink" href="#chaco-example-sample-visualization-of-simulated-live-data-stream-does-not-work" title="Permalink to this headline">¶</a></h3>
 <p>The last of the examples listed under the &#8216;Chaco&#8217; package fails with the following
 error:</p>
 <div class="highlight-python"><pre>AttributeError: 'Viewer' object has no attribute 'Plot'</pre>
@@ -252,9 +345,9 @@ be updated through the Package Manager UI.</p>
 </div>
 </div>
 <div class="section" id="windows">
-<h2><a class="toc-backref" href="#id15">Windows</a><a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id26">Windows</a><a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="windows-installation-stalled-progress-bar-for-epd-7-3-user-python-environment">
-<h3><a class="toc-backref" href="#id16">Windows installation: Stalled progress bar for EPD 7.3 (User Python Environment)</a><a class="headerlink" href="#windows-installation-stalled-progress-bar-for-epd-7-3-user-python-environment" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id27">Windows installation: Stalled progress bar for EPD 7.3 (User Python Environment)</a><a class="headerlink" href="#windows-installation-stalled-progress-bar-for-epd-7-3-user-python-environment" title="Permalink to this headline">¶</a></h3>
 <p>Occasionally, the <a class="reference internal" href="../quick-start/install_pythonenv.html#install-pythonenv"><em>installation of the bundled EPD 7.3 User Python
 Environment</em></a> (initiated from the EPD 8.0 Graphical
 Environment) completes successfully, but the progress bar dialog stalls at
@@ -262,7 +355,7 @@ completion. Workaround: wait for 10 minutes to ensure that the installation
 is not still running, then quit the EPD GUI and restart it.</p>
 </div>
 <div class="section" id="windows-how-to-uninstall-epd-8">
-<h3><a class="toc-backref" href="#id17">Windows: How to uninstall EPD 8</a><a class="headerlink" href="#windows-how-to-uninstall-epd-8" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id28">Windows: How to uninstall EPD 8</a><a class="headerlink" href="#windows-how-to-uninstall-epd-8" title="Permalink to this headline">¶</a></h3>
 <p>Previous versions of EPD contained an &#8220;Uninstall EPD 7.x&#8221; Start Menu
 shortcut. EPD 8 GUI and its bundled EPD 7.3 user Python environment do not
 contain uninstall shortcuts.</p>
@@ -274,16 +367,16 @@ version of EPD 7 had already been installed), delete its installation folder
 from the system and user paths.</p>
 </div>
 <div class="section" id="windows-on-virtual-machine-in-mac-os-crash-on-tab-completion">
-<h3><a class="toc-backref" href="#id18">Windows on virtual machine in Mac OS: crash on tab completion</a><a class="headerlink" href="#windows-on-virtual-machine-in-mac-os-crash-on-tab-completion" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id29">Windows on virtual machine in Mac OS: crash on tab completion</a><a class="headerlink" href="#windows-on-virtual-machine-in-mac-os-crash-on-tab-completion" title="Permalink to this headline">¶</a></h3>
 <p>Repeated tab completion in the code editor can cause the GUI to crash. This
 has only been reported in Windows, running in a virtual machine in Mac OS.
 Under investigation.</p>
 </div>
 </div>
 <div class="section" id="mac-os">
-<h2><a class="toc-backref" href="#id19">Mac OS</a><a class="headerlink" href="#mac-os" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id30">Mac OS</a><a class="headerlink" href="#mac-os" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="mac-os-how-to-uninstall-epd-8">
-<h3><a class="toc-backref" href="#id20">Mac OS: How to Uninstall EPD 8</a><a class="headerlink" href="#mac-os-how-to-uninstall-epd-8" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id31">Mac OS: How to Uninstall EPD 8</a><a class="headerlink" href="#mac-os-how-to-uninstall-epd-8" title="Permalink to this headline">¶</a></h3>
 <p>EPD 8 consists of two components: the graphical environment and the user Python environment.
 Each of these can be uninstalled independently if desired.</p>
 <p>The graphical environment is installed in <tt class="docutils literal"><span class="pre">/Applications/EPD</span></tt>.  If you do not wish to use
@@ -296,9 +389,8 @@ account in <tt class="docutils literal"><span class="pre">Library/EPD</span></tt
 named for the EPD version and machine architecture (&#8216;x86&#8217; for 32-bit and &#8216;x86_64&#8217; for 64-bit).
 For example, a 32-bit install of EPD 7.3 is named &#8216;7.3-x86&#8217;.  Drag the folder for the Python
 environment you want to remove to the Mac OS trash can.</p>
-</div>
-<div class="section" id="mac-os-gui-crashes-when-docking-task-pane-file-browser-python-shell">
-<h3><a class="toc-backref" href="#id21">Mac OS: GUI crashes when docking task pane (file browser, Python shell)</a><a class="headerlink" href="#mac-os-gui-crashes-when-docking-task-pane-file-browser-python-shell" title="Permalink to this headline">¶</a></h3>
+<p>Mac OS: GUI crashes when docking task pane (file browser, Python shell)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</p>
 <p>A task pane is a subwindow whose frame can be dragged to a new position
 within a larger window (&#8220;docked&#8221;), or to float beside the window
 (undocked). Three examples in the Code Editor window are the File
@@ -307,7 +399,7 @@ docking or undocking will occasionally cause the GUI to crash. Under
 investigation.</p>
 </div>
 <div class="section" id="mac-os-too-many-files-open-error-in-code-editor">
-<h3><a class="toc-backref" href="#id22">Mac OS: &#8220;Too many files open&#8221; error in Code Editor</a><a class="headerlink" href="#mac-os-too-many-files-open-error-in-code-editor" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id32">Mac OS: &#8220;Too many files open&#8221; error in Code Editor</a><a class="headerlink" href="#mac-os-too-many-files-open-error-in-code-editor" title="Permalink to this headline">¶</a></h3>
 <p>A problem in the implementation of the service for detecting changes to open files causes
 it to hold too many file handles at once.  As a result, this error can occur in two ways.
 One, if many tabs are opened (40+) at once this error may occur.</p>
@@ -318,11 +410,26 @@ control tool (SubVersion, Git, etc) updates the files in a directory.</p>
 </div>
 </div>
 <div class="section" id="linux">
-<h2><a class="toc-backref" href="#id23">Linux</a><a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id33">Linux</a><a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="linux-installation-issue">
-<h3><a class="toc-backref" href="#id24">Linux: installation issue</a><a class="headerlink" href="#linux-installation-issue" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id34">Linux: installation issue</a><a class="headerlink" href="#linux-installation-issue" title="Permalink to this headline">¶</a></h3>
 <p>On Linux, the installation script fails if it is run in a directory whose
 name contains spaces. This is not supported at present.</p>
+</div>
+<div class="section" id="linux-epd-gui-does-not-start-importerror-libpng12-so-0">
+<h3><a class="toc-backref" href="#id35">Linux: EPD GUI does not start: ImportError: libpng12.so.0</a><a class="headerlink" href="#linux-epd-gui-does-not-start-importerror-libpng12-so-0" title="Permalink to this headline">¶</a></h3>
+<p>On some very new linux distributions (most notably Fedora 17), a newer
+version of libpng is installed by default which is not yet compatible with
+EPD GUI. You may see the following error message on the console on
+starting the GUI:</p>
+<div class="highlight-python"><pre>ImportError: libpng12.so.0: cannot open shared object file: No such file or directory</pre>
+</div>
+<p>You need to install the libpng 1.2 compatibility library to run EPD GUI
+using the following command:</p>
+<div class="highlight-python"><pre>su -c "yum -y install libpng-compat"</pre>
+</div>
+<p>Other distributions not having the libpng compatibility library need
+to follow similar steps.</p>
 </div>
 </div>
 </div>
@@ -336,6 +443,20 @@ name contains spaces. This is not supported at present.</p>
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">EPD 8 beta Release Notes</a><ul>
+<li><a class="reference internal" href="#resolved-issues-8-0-4">Resolved Issues - 8.0.4</a><ul>
+<li><a class="reference internal" href="#package-startup-scripts-installed-incorrectly-via-package-manager-in-8-0-1-and-8-0-2">Package startup scripts installed incorrectly via Package Manager in 8.0.1 and 8.0.2</a></li>
+<li><a class="reference internal" href="#enpkg-proxy-switch-does-not-work">Enpkg &#8211;proxy switch does not work</a></li>
+<li><a class="reference internal" href="#in-app-account-registration-fails-silently">In-app Account Registration Fails Silently</a></li>
+<li><a class="reference internal" href="#windows-mayavi-desktop-shortcut-does-not-work">Windows: Mayavi desktop shortcut does not work</a></li>
+<li><a class="reference internal" href="#windows-64-bit-only-epd-setup-dialog-not-display-when-first-used">Windows (64-bit only): EPD Setup dialog not display when first used</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#resolved-issues-8-0-3">Resolved Issues - 8.0.3</a><ul>
+<li><a class="reference internal" href="#failure-with-locale-set-to-utf-8">Failure with locale set to UTF-8</a></li>
+<li><a class="reference internal" href="#id1">Package startup scripts installed incorrectly via Package Manager in 8.0.1 and 8.0.2</a></li>
+<li><a class="reference internal" href="#inability-to-scroll-help-documentation-main-page">Inability to scroll help documentation main page</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#resolved-issues-8-0-2">Resolved Issues - 8.0.2</a><ul>
 <li><a class="reference internal" href="#reduced-startup-time-for-package-manager-and-enpkg-utility">Reduced startup time for Package Manager and enpkg utility</a></li>
 <li><a class="reference internal" href="#windows-import-of-numpy-fails-with-error-module-object-has-no-attribute-core">Windows: Import of NumPy fails with error &#8220;module object has no attribute &#8216;core&#8217;&#8221;</a></li>
@@ -351,7 +472,7 @@ name contains spaces. This is not supported at present.</p>
 <li><a class="reference internal" href="#package-manager-fails-with-write-error-on-existing-epd-environment">Package Manager fails with write error on existing EPD environment</a></li>
 <li><a class="reference internal" href="#indentation-lost-when-copied-from-editor-pasted-into-a-rich-text-editor">Indentation lost when copied from editor, pasted into a rich text editor</a></li>
 <li><a class="reference internal" href="#editor-python-run-file-behavior-depends-on-whether-file-exists-on-disk">Editor / Python: Run file behavior depends on whether file exists on disk</a></li>
-<li><a class="reference internal" href="#cant-drag-and-drop-arbitrary-file-types-into-the-code-editor">Cant drag-and-drop arbitrary file types into the Code Editor</a></li>
+<li><a class="reference internal" href="#can-t-drag-and-drop-arbitrary-file-types-into-the-code-editor">Can&#8217;t drag-and-drop arbitrary file types into the Code Editor</a></li>
 <li><a class="reference internal" href="#chaco-example-sample-visualization-of-simulated-live-data-stream-does-not-work">Chaco example &#8216;Sample Visualization of Simulated Live Data Stream&#8217; does not work</a></li>
 </ul>
 </li>
@@ -363,12 +484,12 @@ name contains spaces. This is not supported at present.</p>
 </li>
 <li><a class="reference internal" href="#mac-os">Mac OS</a><ul>
 <li><a class="reference internal" href="#mac-os-how-to-uninstall-epd-8">Mac OS: How to Uninstall EPD 8</a></li>
-<li><a class="reference internal" href="#mac-os-gui-crashes-when-docking-task-pane-file-browser-python-shell">Mac OS: GUI crashes when docking task pane (file browser, Python shell)</a></li>
 <li><a class="reference internal" href="#mac-os-too-many-files-open-error-in-code-editor">Mac OS: &#8220;Too many files open&#8221; error in Code Editor</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#linux">Linux</a><ul>
 <li><a class="reference internal" href="#linux-installation-issue">Linux: installation issue</a></li>
+<li><a class="reference internal" href="#linux-epd-gui-does-not-start-importerror-libpng12-so-0">Linux: EPD GUI does not start: ImportError: libpng12.so.0</a></li>
 </ul>
 </li>
 </ul>
@@ -415,7 +536,7 @@ name contains spaces. This is not supported at present.</p>
         <li class="right" >
           <a href="faq.html" title="Tips, Tricks, and Frequently Asked Questions"
              >previous</a> |</li>
-        <li><a href="../index.html">EPD 8.0.2-final documentation</a> &raquo;</li>
+        <li><a href="../index.html">EPD 8.0.4-final documentation</a> &raquo;</li>
           <li><a href="../advanced.html" >Advanced Topics</a> &raquo;</li> 
       </ul>
     </div>
